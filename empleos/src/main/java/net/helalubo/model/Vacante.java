@@ -16,6 +16,19 @@ public class Vacante {
 	
 	
 	
+	public Vacante() {
+		
+	}
+			
+	
+	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.fecha = fecha;
+		this.salario = salario;
+	}
 	public int getId() {
 		return id;
 	}

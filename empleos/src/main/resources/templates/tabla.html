@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymelear.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Listado de vacantes</title>
+</head>
+<body>
+
+
+
+<h1>Lista de vacantes</h1>
+
+<table style= "width: 100%">
+
+<tr>
+
+<th>Id  </th>
+<th>Nombre</th>
+<th>Fecha</th>
+<th>Salario</th>
+<th>Descripcion</th>
+</tr>
+
+
+<tr th:each= "empleo: ${vacantes}">
+
+<td th:text ="${empleo.id}"></td>
+<td th:text ="  ${empleo.nombre}"></td>
+<td th:text ="  ${empleo.fecha}"></td>
+<td th:text ="  ${empleo.salario}"></td>
+<td th:text ="  ${empleo.descripcion}"></td>
+
+</tr>
+
+
+
+</table>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymelear.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+
+
+<h1>Detalle de la oferta de trabajo</h1>
+
+<h3 th:text ="'Nombre: '+  ${vacante.nombre}"></h3>
+<h4 th:text ="'Fecha publicacion: '+  ${vacante.fecha}"></h4>
+<h4 th:text ="'Salario ofrecido: '+  ${vacante.salario}"></h4>
+<h4 th:text ="'Descripcion: '+  ${vacante.descripcion}"></h4>
+
+</body>
+</html>
