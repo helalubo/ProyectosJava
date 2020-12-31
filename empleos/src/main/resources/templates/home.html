@@ -1,14 +1,43 @@
+
+<!--Como utilizar Thymeleaf -->
+
+
 <!DOCTYPE html>
-<html>
+
+<!-- Agrego la dependencia de thymeleaf  en un archivo html, en la etiqueta
+
+Siempre las variables colocadas en el th.text reemplaza el texto estatico 
+(las que estan entre etiquetas) por el valor de los atributos creados en el controleer con addAtribute.
+
+-->
+
+
+<html xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="ISO-8859-1">
 
 <title>Pagina principal</title>
 </head>
 <body>
-<h1>Bienvenido a Empleos App</h1>
+
+<!-- La mejor manera de agregar variables creadas en controladores en un HTML es usando
+la sintaxis [[${atributoASerLlamado}]] -->
+
+<!-- SINO DENTRO DE UN TH.TEXT  Y CONCATENANDO CON MAS-->
+<span>Hoy es [[${fecha}]]</span>
 
 
+<!-- <h1 th:text="${user}"></h1> -->
+
+
+<h1>Bienvenido</h1>
+<h2>Oferta de Trabajo</h2>
+<h3 th:text = "'Titulo: ' + ${nombre}"></h3>
+<h3 th:text = "'Fecha: ' + ${fechaPub}"></h3>
+<h3 th:text = "'Salario: ' + ${salario}"></h3>
+
+<!-- utilizo ? : para verificar el true o el false -->
+<h3 th:text = "'vigente: ' + ${vigente ? 'Si': 'No'}"></h3>
 
 </body>
 </html>

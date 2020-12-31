@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://thymelear.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Listado de ofertas de trabajo</title>
+</head>
+<body>
+
+
+	<!-- 	Utilizo el h:each para poder mostrar una lista, funciona como el foreach -->
+
+	<h1>Vacantes disponibles</h1>
+
+
+	<dl >
+
+
+		<dd th:each="empleo: ${empleos}" th:text="${empleo}"> </dd>
+
+	
+	</dl>
+
+
+
+	
+
+
+
+
+
+</body>
+</html>
