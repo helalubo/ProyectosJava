@@ -4,43 +4,70 @@
 <meta charset="ISO-8859-1">
 
 <!-- AGREGO BOOTSTRAP DENTRO DE LA ETIQUETA HEAD -->
-<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+
+
+
+
 <title>Listado de vacantes</title>
+
+
 </head>
 <body>
 
 
 
-<h1 class="text-primary">Lista de vacantes</h1>
+	<img th:src="@{/images/logo.png}" width="136" height="136">
+	<h1 class="text-primary">Lista de vacantes</h1>
 
-<table class="table  table-striped table-bordered table-hover" >      
+	<table class="table  table-striped table-bordered table-hover">
 
-<tr>
-
-<th>Id  </th>
-<th>Nombre</th>
-<th>Fecha de pub</th>
-<th>Salario</th>
-<th>Descripcion</th>
-</tr>
-
-
-<tr th:each= "empleo: ${vacantes}">
-
-<td th:text ="${empleo.id}"></td>
-<td th:text ="  ${empleo.nombre}"></td>
-<td th:text ="  ${empleo.fecha}"></td>
-<td th:text ="  ${empleo.salario}"></td>
-<td th:text ="  ${empleo.descripcion}"></td>
-
-</tr>
+		<tr>
+			<th>Logo</th>
+			<th>Id</th>
+			<th>Nombre</th>
+			<th>Fecha de pub</th>
+			<th>Salario</th>
+			<th>Descripcion</th>
+			<th>Destacada</th>
+		</tr>
 
 
+		<tr th:each="vacante: ${vacantes}">
 
-</table>
+			<td> 
+<!-- 			IMPORTANTE! para poner imagenes de manera dinamica segun base de datos tengo que usar esta sintaxis -->
+			<img th:src="@{/images/{img} (img=${vacante.imagen})}" width="136" height="136">
+			
+			</td>
+			<td th:text="${vacante.id}"></td>
+			<td th:text="  ${vacante.nombre}"></td>
+			<td th:text="  ${vacante.fecha}"></td>
+			<td th:text="  ${vacante.salario}"></td>
+			<td th:text="  ${vacante.descripcion}"></td>
 
-<!-- AGREGO EL SCRIPT ANTES DE QUE TERMINE LA ETIQUETA BODY -->
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
+			<!-- <td th:text ="  ${empleo.destacado == 1}? 'Si': 'No'"></td> -->
+			<td><span th:if="${vacante.destacado ==1}"
+				class="badge bg-success">Si</span> <span
+				th:unless="${vacante.destacado ==1}" class="badge bg-danger">No</span>
+			</td>
+
+
+		</tr>
+
+
+
+	</table>
+
+	<!-- AGREGO EL SCRIPT ANTES DE QUE TERMINE LA ETIQUETA BODY -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
 
 </body>
 </html>

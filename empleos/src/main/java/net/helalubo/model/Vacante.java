@@ -13,6 +13,8 @@ public class Vacante {
 	private String descripcion;
 	private Date fecha;
 	private Double salario;
+	private Integer destacado;
+	private String imagen="no-image.png";
 	
 	
 	
@@ -21,13 +23,14 @@ public class Vacante {
 	}
 			
 	
-	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario) {
+	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario, Integer destacado) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.fecha = fecha;
 		this.salario = salario;
+		this.destacado = destacado;
 	}
 	public int getId() {
 		return id;
@@ -59,6 +62,14 @@ public class Vacante {
 	public void setSalario(Double salario) {
 		this.salario = salario;
 	}
+	public Integer getDestacado() {
+		return destacado;
+	}
+	
+	
+	public void setDestacado(Integer destacado) {
+		this.destacado = destacado;
+	}
 	
 	
 	@Override
@@ -77,6 +88,18 @@ public class Vacante {
 	 return sb.toString();
 	 
 	}
+
+
+	public String getImagen() {
+		return imagen;
+	}
+
+
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
+	}
+
+
 	
 	
 	
