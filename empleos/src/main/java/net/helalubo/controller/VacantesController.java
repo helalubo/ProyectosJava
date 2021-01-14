@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.helalubo.model.Vacante;
@@ -32,7 +33,31 @@ public class VacantesController {
 	}
 	
 	
+	@RequestMapping(value ="/index",method=RequestMethod.GET)
+	public String MostrarIndex(Model model) {
+		
+		return "listCategorias";
+	}
 	
+	@RequestMapping(value ="/create",method=RequestMethod.GET)
+	public String Crear(){
+		
+		return "formVacante";
+	}
+	
+//	utilizo este metodo post para tomar los datos del formulario y guardarlos o manipularlos a antojo. usando requestparam
+//	lo impornte es que dentro de los requestparam coincida con el name de los input que toman datos en el formulario
+	
+	@RequestMapping(value ="/save",method=RequestMethod.POST)
+	public String Guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion")  String descripcion){
+		
+		//Aca ya podria guardar datos en bases de datos.
+		
+		System.out.print("Categoria: " + nombre);
+		System.out.print("Descripcion: " + descripcion);
+		
+		return "listCategorias";
+	}
 	
 	
 	
