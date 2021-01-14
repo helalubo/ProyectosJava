@@ -22,41 +22,21 @@ import net.helalubo.service.VacantesServiceImpl;
 public class HomeController {
 
 //Cuando quiero usar un servicio (previamente marcado con la etiqueta @Service ) tengo que usar la etiqueta  @Autowired, esto indicara
-	//Que estoy utilizando un servicio con metodos ya declarados
-	
+	// Que estoy utilizando un servicio con metodos ya declarados
+
 	@Autowired
 	private IVacanteService vacanteService;
-	
-	
+
 	@GetMapping("/vacantes")
-	public String mostrarTabla(Model model)
-	{
+	public String mostrarTabla(Model model) {
 		List<Vacante> lista = vacanteService.buscarTodas();
 		model.addAttribute("vacantes", lista);
-		
-		
+
 		return "tabla";
-		
-	}
-	
-
-
-	
-
-
-	@GetMapping("/detalle")
-	public String mostrarDetalle(Model model) {
-
-		Vacante vacante = new Vacante();
-		vacante.setNombre("Ingeniero de comunicaciones");
-		vacante.setDescripcion("Se solicita ingeniero para dar soporte a intranet");
-		vacante.setFecha(new Date());
-		vacante.setSalario(9700.0);
-		model.addAttribute("vacante", vacante);
-
-		return "detalle";
 
 	}
+
+
 
 	/*
 	 * Mapeo la metodo controlador que en este caso devuelve un string en formato
@@ -118,13 +98,10 @@ public class HomeController {
 //		model.addAttribute("vigente", vigente);
 //
 //		model.addAttribute("fecha", new Date());
-		
-		
-		//Siempre que pueda usar el servicio.
+
+		// Siempre que pueda usar el servicio.
 		List<Vacante> lista = vacanteService.buscarTodas();
 		model.addAttribute("vacantes", lista);
-		
-		
 
 		return "home";
 	}

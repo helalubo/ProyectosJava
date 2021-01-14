@@ -35,7 +35,7 @@ public class VacantesServiceImpl implements IVacanteService {
 
 //				agrego imagenes
 
-			vacante1.setImagen("empresa1.png");
+			vacante1.setImagen("logo7.png");
 			vacante2.setImagen("empresa2.png");
 			vacante4.setImagen("empresa3.png");
 
