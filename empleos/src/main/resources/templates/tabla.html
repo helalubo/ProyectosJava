@@ -40,9 +40,9 @@
 		<tr th:each="vacante: ${vacantes}">
 
 			<td> 
+<!-- 			Agregp valor para el PathVariable que utilizo en el controlador, IMPORTANTE -->
+			<a th:href="@{/vacantes/view/{id} (id=${vacante.id})}">
 <!-- 			IMPORTANTE! para poner imagenes de manera dinamica segun base de datos tengo que usar esta sintaxis -->
-			
-			<a th:href="@{/tabla/view/{id} (id=${vacante.id})}">
 			<img  th:src="@{/images/{img} (img=${vacante.imagen})}" width="136" height="136">
 			
 			</a>

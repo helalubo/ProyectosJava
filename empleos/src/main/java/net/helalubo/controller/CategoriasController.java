@@ -37,4 +37,11 @@ public class CategoriasController {
 		
 		return "Categorias/listCategorias";
 	}
+	
+	
+	
+	
+	
+	
+	
 }
