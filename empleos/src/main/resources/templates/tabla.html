@@ -34,6 +34,7 @@
 			<th>Salario</th>
 			<th>Descripcion</th>
 			<th>Destacada</th>
+			<th>Ver Vacante </th>
 		</tr>
 
 
@@ -41,7 +42,7 @@
 
 			<td> 
 <!-- 			Agregp valor para el PathVariable que utilizo en el controlador, IMPORTANTE -->
-			<a th:href="@{/vacantes/view/{id} (id=${vacante.id})}">
+<!-- 			<a th:href="@{/vacantes/view/{id} (id=${vacante.id})}"> -->
 <!-- 			IMPORTANTE! para poner imagenes de manera dinamica segun base de datos tengo que usar esta sintaxis -->
 			<img  th:src="@{/images/{img} (img=${vacante.imagen})}" width="136" height="136">
 			
@@ -59,6 +60,10 @@
 				class="badge bg-success">Si</span> <span
 				th:unless="${vacante.destacado ==1}" class="badge bg-danger">No</span>
 			</td>
+			
+			
+			<td> <a  th:href="@{/vacantes/view/{id} (id=${vacante.id})}" class= "btn btn-success"> Ver Detalle </a> </td>
+			
 
 
 		</tr>
