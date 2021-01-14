@@ -6,23 +6,32 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import net.helalubo.model.Vacante;
+import net.helalubo.service.IVacanteService;
+import net.helalubo.service.VacantesServiceImpl;
 
 /*Establecemos que la clase es controller*/
 
 @Controller
 public class HomeController {
 
+//Cuando quiero usar un servicio (previamente marcado con la etiqueta @Service ) tengo que usar la etiqueta  @Autowired, esto indicara
+	//Que estoy utilizando un servicio con metodos ya declarados
+	
+	@Autowired
+	private IVacanteService vacanteService;
+	
 	
 	@GetMapping("/vacantes")
 	public String mostrarTabla(Model model)
 	{
-		List<Vacante> lista = Vacante.getVacantes();
+		List<Vacante> lista = vacanteService.buscarTodas();
 		model.addAttribute("vacantes", lista);
 		
 		

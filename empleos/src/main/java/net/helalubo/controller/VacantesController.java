@@ -2,6 +2,7 @@ package net.helalubo.controller;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,11 +11,16 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.helalubo.model.Vacante;
+import net.helalubo.service.IVacanteService;
+import net.helalubo.service.VacantesServiceImpl;
 
 @Controller
 @RequestMapping("/vacantes")
 public class VacantesController {
 
+	@Autowired
+	private IVacanteService vacanteService;
+	
 	@GetMapping("/delete")
 	public String eliminar(@RequestParam("id") int idVancante, Model model) {
 		
@@ -45,7 +51,7 @@ public class VacantesController {
 	{
 		
 	
-		Vacante vacante = Vacante.getVacante(idVacante);
+		Vacante vacante =vacanteService.buscarPorId(idVacante);
 		
 		//agrego la variable al modelo para usar en frontend
 		
