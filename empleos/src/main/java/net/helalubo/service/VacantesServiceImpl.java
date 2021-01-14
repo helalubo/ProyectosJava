@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 
 import net.helalubo.model.Vacante;
 
+//Creamos el servicio poniendo la etiqueta  @service arriva de la clase que implementa la interface IVacanteService. 
 @Service
 public class VacantesServiceImpl implements IVacanteService {
 
@@ -20,7 +21,7 @@ public class VacantesServiceImpl implements IVacanteService {
 
 		try {
 			Vacante vacante1 = new Vacante(1, "Ingreniero Civil", "Solicitamos ing Civil para diseñar puente peatonal",
-					sdf.parse("08-02-2019"), 8500.0, 1);
+					sdf.parse("08-02-2019"), 14000.0, 1);
 
 			Vacante vacante2 = new Vacante(2, "Contador publico",
 					"Empresa importante solicita contador con 5 años de experiencia titulado", sdf.parse("09-02-2019"),

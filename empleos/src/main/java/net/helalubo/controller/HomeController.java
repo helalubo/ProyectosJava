@@ -107,17 +107,24 @@ public class HomeController {
 		 * sb.append("Bienvenidos a Empleos App"); model.addAttribute("user",
 		 * sb.toString());
 		 */
-		String nombre = "Auxiliar de Contabilidad";
-		Date fechaPub = new Date();
-		double salario = 9000.0;
-		boolean vigente = true;
-
-		model.addAttribute("nombre", nombre);
-		model.addAttribute("fechaPub", fechaPub);
-		model.addAttribute("salario", salario);
-		model.addAttribute("vigente", vigente);
-
-		model.addAttribute("fecha", new Date());
+//		String nombre = "Auxiliar de Contabilidad";
+//		Date fechaPub = new Date();
+//		double salario = 9000.0;
+//		boolean vigente = true;
+//
+//		model.addAttribute("nombre", nombre);
+//		model.addAttribute("fechaPub", fechaPub);
+//		model.addAttribute("salario", salario);
+//		model.addAttribute("vigente", vigente);
+//
+//		model.addAttribute("fecha", new Date());
+		
+		
+		//Siempre que pueda usar el servicio.
+		List<Vacante> lista = vacanteService.buscarTodas();
+		model.addAttribute("vacantes", lista);
+		
+		
 
 		return "home";
 	}

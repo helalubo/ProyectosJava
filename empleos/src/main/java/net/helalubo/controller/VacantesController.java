@@ -59,7 +59,7 @@ public class VacantesController {
 		
 		
 		//retorno la vista de frontend donde debera utilizarse la vacante
-		return "vacantes/detalle";
+		return "detalle";
 		
 	}
 	
