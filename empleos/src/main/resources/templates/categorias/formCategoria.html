@@ -2,11 +2,42 @@
 <html xmlns:th="http://thymelear.org">
 <head>
 <meta charset="ISO-8859-1">
+<link
+	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
+	rel="stylesheet"
+	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
+	crossorigin="anonymous">
+
+
 <title>Crear categorias.</title>
 </head>
+
 <body>
 
 <h1>Creacion de Categoria</h1>
+
+
+<!-- CREO UN FORMULARIO QUE TOMARA COMO DATOS Y LOS GUARDARA, ESTO ES UN EJEMPLO DE COMO USAR FORMULARIOS EN THYMELEAF -->
+
+
+<form th:action="@{/categorias/save}" method="post">
+<div class="form-group ">
+  <label for="usr">Nombre:</label>
+  <input type="text" name="nombre" value="" class="form-control" id="usr">
+</div>
+<div class="form-group">
+  <label for="pwd">Descripcion:</label>
+  <input type="text"  name="descripcion" value=""class="form-control" id="pwd">
+</div>
+
+<div>  <input type="submit"  value="Guardar"  class="form-control" id="pwd"></div>
+
+</form>
+
+<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
+		crossorigin="anonymous"></script>
 
 </body>
 </html>
