@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import net.helalubo.model.Vacante;
 
@@ -29,6 +30,36 @@ public class HomeController {
 		
 	}
 	
+	
+	/*
+	 * Uso variable dinamica para poder acceder a cada uno de los empleos, esto es por id. 
+	 * Busca la vacante que sea igual al id y devuelve el objeto agregandolo al model para luego ser usada en la vista devuelta como string en la funccion.
+	 * @see detalle.html
+	 * 
+	 * 
+	 * */
+	@GetMapping("/tabla/view/{id}")
+	public String verDetalle(@PathVariable("id") int  idVacante, Model model)
+	{
+		
+		List<Vacante> lista = getVacantes();
+		Vacante vacante = new Vacante();
+		
+		for (Vacante vacanteAux : lista) {
+			
+			if(idVacante == vacanteAux.getId())
+			{
+				vacante = vacanteAux;
+				break;
+			}
+		}
+		
+		
+		model.addAttribute("vacante", vacante);
+		
+		return "detalle";
+		
+	}
 	
 	/**
 	 * 

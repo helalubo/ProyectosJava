@@ -9,6 +9,7 @@
 
 <h1>Detalle de la oferta de trabajo</h1>
 
+<img  th:src="@{/images/{img} (img=${vacante.imagen})}" width="136" height="136">
 <h3 th:text ="'Nombre: '+  ${vacante.nombre}"></h3>
 <h4 th:text ="'Fecha publicacion: '+  ${vacante.fecha}"></h4>
 <h4 th:text ="'Salario ofrecido: '+  ${vacante.salario}"></h4>
