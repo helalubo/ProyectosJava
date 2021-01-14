@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import net.helalubo.model.Vacante;
 
@@ -14,6 +15,21 @@ import net.helalubo.model.Vacante;
 @RequestMapping("/vacantes")
 public class VacantesController {
 
+	@GetMapping("/delete")
+	public String eliminar(@RequestParam("id") int idVancante, Model model) {
+		
+		
+		model.addAttribute("id",idVancante);
+		System.out.print("Borrando id " + idVancante);
+		
+		return "mensaje";
+	}
+	
+	
+	
+	
+	
+	
 	
 	
 	/*
