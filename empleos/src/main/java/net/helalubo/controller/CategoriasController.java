@@ -24,13 +24,13 @@ public class CategoriasController {
 	@RequestMapping(value ="/index",method=RequestMethod.GET)
 	public String MostrarIndex(Model model) {
 		
-		return "Categorias/listCategorias";
+		return "listCategorias";
 	}
 	
 	@RequestMapping(value ="/create",method=RequestMethod.GET)
 	public String Crear(){
 		
-		return "Categorias/formCategoria";
+		return "formCategoria";
 	}
 	
 //	utilizo este metodo post para tomar los datos del formulario y guardarlos o manipularlos a antojo. usando requestparam
@@ -44,7 +44,7 @@ public class CategoriasController {
 		System.out.print("Categoria: " + nombre);
 		System.out.print("Descripcion: " + descripcion);
 		
-		return "Categorias/listCategorias";
+		return "listCategorias";
 	}
 	
 	
