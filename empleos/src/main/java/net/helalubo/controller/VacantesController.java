@@ -1,21 +1,26 @@
 package net.helalubo.controller;
 
-import java.util.List;
+
+import java.text.SimpleDateFormat;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import net.helalubo.model.Vacante;
 import net.helalubo.service.IVacanteService;
-import net.helalubo.service.VacantesServiceImpl;
 
 @Controller
+
 @RequestMapping("/vacantes")
 public class VacantesController {
 
@@ -36,27 +41,32 @@ public class VacantesController {
 	@RequestMapping(value ="/index",method=RequestMethod.GET)
 	public String MostrarIndex(Model model) {
 		
-		return "listCategorias";
+		return "vacantes/listVacantes";
 	}
 	
 	@RequestMapping(value ="/create",method=RequestMethod.GET)
 	public String Crear(){
 		
-		return "formVacante";
+		return "vacantes/formVacante";
 	}
 	
 //	utilizo este metodo post para tomar los datos del formulario y guardarlos o manipularlos a antojo. usando requestparam
 //	lo impornte es que dentro de los requestparam coincida con el name de los input que toman datos en el formulario
+
 	
-	@RequestMapping(value ="/save",method=RequestMethod.POST)
-	public String Guardar(@RequestParam("nombre") String nombre, @RequestParam("descripcion")  String descripcion){
+	
+	///Gracias a que los atributos name de los input del formulario coinciden con los nombres de los campos de la clase vacante
+	//Podemos adquirir sus parametros y obtenerlos directamente en 
+	
+	@PostMapping("/save")
+	public String Guardar(Vacante vacante){
 		
 		//Aca ya podria guardar datos en bases de datos.
 		
-		System.out.print("Categoria: " + nombre);
-		System.out.print("Descripcion: " + descripcion);
+		System.out.print(vacante);
+	
 		
-		return "listCategorias";
+		return "vacantes/listVacantes";
 	}
 	
 	
@@ -88,4 +98,14 @@ public class VacantesController {
 		
 	}
 	
+	//Metodo que pareca implicitamente en el momento de que spring trabaja con los formularios input,
+	//en este caso toma una fecha en string y la transforma en el dato deseado, sirve para varios tipos de datos.
+	
+	
+	@InitBinder
+	public void initBinder(WebDataBinder webDataBinder)
+	{
+		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
+		webDataBinder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(dateFormat, false));
+	}
 }
