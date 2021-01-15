@@ -2,6 +2,7 @@ package net.helalubo.controller;
 
 
 import java.text.SimpleDateFormat;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -41,6 +42,9 @@ public class VacantesController {
 	@RequestMapping(value ="/index",method=RequestMethod.GET)
 	public String MostrarIndex(Model model) {
 		
+		List<Vacante> listaDeVacantes = vacanteService.buscarTodas();
+		//System.out.print(vacante);
+		model.addAttribute("vacantes",listaDeVacantes);
 		return "vacantes/listVacantes";
 	}
 	
@@ -59,11 +63,14 @@ public class VacantesController {
 	//Podemos adquirir sus parametros y obtenerlos directamente en 
 	
 	@PostMapping("/save")
-	public String Guardar(Vacante vacante){
+	public String Guardar(Vacante vacante,Model model){
 		
 		//Aca ya podria guardar datos en bases de datos.
 		
-		System.out.print(vacante);
+		vacanteService.Guardar(vacante);
+		List<Vacante> listaDeVacantes = vacanteService.buscarTodas();
+		//System.out.print(vacante);
+		model.addAttribute("vacantes",listaDeVacantes);
 	
 		
 		return "vacantes/listVacantes";
