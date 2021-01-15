@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -62,14 +64,33 @@ public class VacantesController {
 	///Gracias a que los atributos name de los input del formulario coinciden con los nombres de los campos de la clase vacante
 	//Podemos adquirir sus parametros y obtenerlos directamente en 
 	
+	
+	//BindingResult es un objeto que se utiliza para verificar errores en los datos
+	//Esto gracias a su metodo hasErros que nos permite verificar si tiene errores y en el caso de que haya algun error en 
+	//spring podremos redirigirlo a otra vista
+	
 	@PostMapping("/save")
-	public String Guardar(Vacante vacante,Model model){
+	public String Guardar(Vacante vacante,BindingResult result  ,Model model){
 		
-		//Aca ya podria guardar datos en bases de datos.
+		
+		//En caso de que el objeto result detecte algun tipo de error con hasErrors y nos retornara denuevo al formulario.
+		
+		///para ver los errores de consola podemos iterar los object errors de la lista de errores que esta dentro del objeto result de BindingResult
+		
+		
+		//VERIFICACION DE ERRORES EN TOMA DE DATOS INPUT
+		for (ObjectError error : result.getAllErrors()) {
+			
+			System.out.print("Ocurrio un error: " + error.getDefaultMessage());
+		}
+		if(result.hasErrors()) {
+			return "vacantes/formVacante";
+		}
+		
 		
 		vacanteService.Guardar(vacante);
 		List<Vacante> listaDeVacantes = vacanteService.buscarTodas();
-		//System.out.print(vacante);
+		System.out.print(vacante);
 		model.addAttribute("vacantes",listaDeVacantes);
 	
 		
