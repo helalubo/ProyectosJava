@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.helalubo.model.Vacante;
 import net.helalubo.service.IVacanteService;
@@ -50,8 +51,8 @@ public class VacantesController {
 		return "vacantes/listVacantes";
 	}
 	
-	@RequestMapping(value ="/create",method=RequestMethod.GET)
-	public String Crear(){
+	@GetMapping("/create")
+	public String Crear(Vacante vacante){
 		
 		return "vacantes/formVacante";
 	}
@@ -69,8 +70,12 @@ public class VacantesController {
 	//Esto gracias a su metodo hasErros que nos permite verificar si tiene errores y en el caso de que haya algun error en 
 	//spring podremos redirigirlo a otra vista
 	
+	///agrego el parametro RedirectAttributes para que pueda agregar un dato a la redireccion del template que se necesita en el caso del
+	//guardado la redireccion es a la lista cuando ya se muestra como actualizada.
+	
+	
 	@PostMapping("/save")
-	public String Guardar(Vacante vacante,BindingResult result  ,Model model){
+	public String Guardar(Vacante vacante,BindingResult result , RedirectAttributes attributes){
 		
 		
 		//En caso de que el objeto result detecte algun tipo de error con hasErrors y nos retornara denuevo al formulario.
@@ -89,12 +94,17 @@ public class VacantesController {
 		
 		
 		vacanteService.Guardar(vacante);
-		List<Vacante> listaDeVacantes = vacanteService.buscarTodas();
-		System.out.print(vacante);
-		model.addAttribute("vacantes",listaDeVacantes);
+		
+		//Si quiero puedo agregar al RedirectAttributes un mensaje el cual se podra utilizar en el template donde se a redirigido la app
+		//tambien por le hecho de ser un metodo post. el RedirectAttributes se usa cuando queremos mandar
+		//alguna informacion a un template al cual se ha sido redirigido, esto usando addFlashAttribute
+		attributes.addFlashAttribute("msg","Registro guardado");
+		
+
+	
 	
 		
-		return "vacantes/listVacantes";
+		return "redirect:/vacantes/index";
 	}
 	
 	
