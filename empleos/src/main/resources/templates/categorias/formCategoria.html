@@ -1,43 +1,91 @@
-<!DOCTYPE html>
-<html xmlns:th="http://thymelear.org">
+<!doctype html>
+<html lang="en">
 <head>
-<meta charset="ISO-8859-1">
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1"
-	crossorigin="anonymous">
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, shrink-to-fit=no">
+<meta name="description" content="">
+<meta name="author" content="">
+<link rel="icon" href="favicon.ico">
 
-
-<title>Crear categorias.</title>
+<title>EmpleosApp | Creación de Categorías</title>
+<!-- Bootstrap core CSS -->
+<link th:href="@{/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+<!-- Custom styles for this template -->
+<link th:href="@{/bootstrap/css/jumbotron.css}" rel="stylesheet">
+<link th:href="@{/bootstrap/css/sticky-footer-navbar.css}"
+	rel="stylesheet">
 </head>
 
 <body>
 
-<h1>Creacion de Categoria</h1>
+	<header th:insert="fragments/menu.html :: menu-principal"> </header>
+
+	<main role="main">
+		<hr>
+		<div class="container">
+
+			<div class="card">
+				<h4 class="card-header">
+					<strong>Datos de la categoría</strong>
+				</h4>
+				<div class="card-body">
+					<form th:action="@{/categorias/save}" method="post"
+						th:object="${categoria}">
+
+<!-- 					<div th:if="${#fields.hasErrors('*')}" class="alert alert-danger" -->
+<!-- 							role="alert"> -->
+
+<!-- 							<h3> -->
+<!-- 							 Por favor corrija los siguientes errores: -->
+							
+<!-- 							</h3> -->
+<!-- 							<ul> -->
+
+<!-- 								<li th:each="err : ${#fields.errors('*')}" th:text="${err}"> </li>  -->
+<!-- 							</ul> -->
 
 
-<!-- CREO UN FORMULARIO QUE TOMARA COMO DATOS Y LOS GUARDARA, ESTO ES UN EJEMPLO DE COMO USAR FORMULARIOS EN THYMELEAF -->
+<!-- 						</div> -->
+						
 
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="nombre" >Nombre</label> <input type="text"
+										class="form-control" id="nombre" name="nombre"
+										placeholder="Escriba el nombre de la categoria"
+										required="required" >
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col-md-6">
+								<div class="form-group">
+									<label for="descripcion">Descripción</label>
+									<textarea class="form-control" name="descripcion"
+										id="descripcion" rows="2"></textarea>
+								</div>
+							</div>
+						</div>
+						<hr>
+						<button type="submit" title="Guardar el registro."
+							class="btn btn-primary">Guardar</button>
+					</form>
+				</div>
+			</div>
+		</div>
+		<!-- /container -->
 
-<form th:action="@{/categorias/save}" method="post">
-<div class="form-group ">
-  <label for="usr">Nombre:</label>
-  <input type="text" name="nombre" value="" class="form-control" id="usr">
-</div>
-<div class="form-group">
-  <label for="pwd">Descripcion:</label>
-  <input type="text"  name="descripcion" value=""class="form-control" id="pwd">
-</div>
+	</main>
 
-<div>  <input type="submit"  value="Guardar"  class="form-control" id="pwd"></div>
+	<footer th:insert="fragments/footer.html :: pie-pagina" class="footer">
+		</footer>
 
-</form>
-
-<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW"
-		crossorigin="anonymous"></script>
-
+	<!-- Bootstrap core JavaScript
+    ================================================== -->
+	<!-- Placed at the end of the document so the pages load faster -->
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>
 </body>
 </html>

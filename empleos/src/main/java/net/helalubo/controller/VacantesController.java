@@ -20,7 +20,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import net.helalubo.model.Categoria;
 import net.helalubo.model.Vacante;
+import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IVacanteService;
 
 @Controller
@@ -30,6 +32,9 @@ public class VacantesController {
 
 	@Autowired
 	private IVacanteService vacanteService;
+	
+	@Autowired
+	private ICategoriaService categoriaService;
 	
 	@GetMapping("/delete")
 	public String eliminar(@RequestParam("id") int idVancante, Model model) {
@@ -52,8 +57,11 @@ public class VacantesController {
 	}
 	
 	@GetMapping("/create")
-	public String Crear(Vacante vacante){
+	public String Crear(Vacante vacante, Model model){
 		
+	
+		
+		model.addAttribute("categorias", categoriaService.buscarTodas());
 		return "vacantes/formVacante";
 	}
 	

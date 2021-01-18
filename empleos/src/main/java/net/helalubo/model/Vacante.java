@@ -17,12 +17,14 @@ public class Vacante {
 	private String nombre;
 	private String descripcion;
 	private Date fecha;
-	private int categoria;
+
 	private Integer destacado;
 	private Double salario;
 	private String imagen = "no-image.png";
 	private String estatus;
 	private String detalles;
+	
+	private Categoria categoria;
 
 	public Vacante() {
 
@@ -122,27 +124,24 @@ public class Vacante {
 		return imagen;
 	}
 
+	
+
 	@Override
 	public String toString() {
 		return "Vacante [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", fecha=" + fecha
-				+ ", categoria=" + categoria + ", destacado=" + destacado + ", salario=" + salario + ", imagen="
-				+ imagen + ", estatus=" + estatus + ", detalles=" + detalles + ", getId()=" + getId() + ", getNombre()="
-				+ getNombre() + ", getDescripcion()=" + getDescripcion() + ", getFecha()=" + getFecha()
-				+ ", getSalario()=" + getSalario() + ", getDestacado()=" + getDestacado() + ", getImagen()="
-				+ getImagen() + ", getCategoria()=" + getCategoria() + ", getDetalles()=" + getDetalles()
-				+ ", getEstatus()=" + getEstatus() + ", getClass()=" + getClass() + ", hashCode()=" + hashCode()
-				+ ", toString()=" + super.toString() + "]";
+				+ ", destacado=" + destacado + ", salario=" + salario + ", imagen=" + imagen + ", estatus=" + estatus
+				+ ", detalles=" + detalles + ", categoria=" + categoria + "]";
 	}
 
 	public void setImagen(String imagen) {
 		this.imagen = imagen;
 	}
 
-	public int getCategoria() {
+	public Categoria getCategoria() {
 		return categoria;
 	}
 
-	public void setCategoria(int categoria) {
+	public void setCategoria(Categoria categoria) {
 		this.categoria = categoria;
 	}
 
