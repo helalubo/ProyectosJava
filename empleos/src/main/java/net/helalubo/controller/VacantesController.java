@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -21,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import net.helalubo.model.Categoria;
 import net.helalubo.model.Vacante;
 import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IVacanteService;
@@ -32,6 +32,9 @@ import net.helalubo.util.Utileria;
 @RequestMapping("/vacantes")
 public class VacantesController {
 
+    @Value("${empleosapp.ruta.imagenes}")
+	private String ruta;
+	
 	@Autowired
 	private IVacanteService vacanteService;
 	
@@ -105,7 +108,7 @@ public class VacantesController {
 		if(!multiPart.isEmpty())
 		{
 			//String ruta = "/empleos/img-vacantes/" //Para mac y linux
-			String ruta = "d:/empleos/img-vacantes/"; //Para windows
+			//String ruta = "d:/empleos/img-vacantes/"; //Para windows
 			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
 			
 			if(nombreImagen != null) { //Chequea si la imagen se subio
