@@ -18,12 +18,14 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.helalubo.model.Categoria;
 import net.helalubo.model.Vacante;
 import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IVacanteService;
+import net.helalubo.util.Utileria;
 
 @Controller
 
@@ -83,7 +85,7 @@ public class VacantesController {
 	
 	
 	@PostMapping("/save")
-	public String Guardar(Vacante vacante,BindingResult result , RedirectAttributes attributes){
+	public String Guardar(Vacante vacante,BindingResult result , RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multiPart){
 		
 		
 		//En caso de que el objeto result detecte algun tipo de error con hasErrors y nos retornara denuevo al formulario.
@@ -99,6 +101,20 @@ public class VacantesController {
 		if(result.hasErrors()) {
 			return "vacantes/formVacante";
 		}
+		
+		if(!multiPart.isEmpty())
+		{
+			//String ruta = "/empleos/img-vacantes/" //Para mac y linux
+			String ruta = "d:/empleos/img-vacantes/"; //Para windows
+			String nombreImagen = Utileria.guardarArchivo(multiPart, ruta);
+			
+			if(nombreImagen != null) { //Chequea si la imagen se subio
+				//Procesamos la variable nombreImagen para ligarla con el objeto
+				vacante.setImagen(nombreImagen);
+			}
+					
+		}
+		
 		
 		
 		vacanteService.Guardar(vacante);
