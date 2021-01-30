@@ -12,11 +12,14 @@ public interface VacantesRepository extends JpaRepository<Vacante, Integer> {
 	
 	
 	//IMPORTANTE: Para saber que tipo de datos pasar como parametros debemos mirar los tipos de datos
-	//de la tabla de base de datos, por ejemplo si es un ID se debera pasar o como Long o como Integer
+	//del model, por ejemplo si es un ID se debera pasar o como Long o como Integer
 	
 	List<Vacante> findByEstatusAndDestacadoOrderByIdDesc(String estatus, Integer destacado);
 	
 	
+	List<Vacante>  findBySalarioBetweenOrderBySalarioDesc(double min, double max );
 	
+	
+	List<Vacante> findByEstatusIn(String[] estatus);
 	
 }

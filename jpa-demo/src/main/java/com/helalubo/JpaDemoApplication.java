@@ -46,7 +46,7 @@ public class JpaDemoApplication implements CommandLineRunner {
 	@Override
 	public void run(String... args) throws Exception {
 		// TODO Auto-generated method stu
-		//System.out.println(repoCategorias);
+		// System.out.println(repoCategorias);
 
 		/// CRUD REPOSITORY
 
@@ -60,35 +60,27 @@ public class JpaDemoApplication implements CommandLineRunner {
 		// buscarTodos();
 		// existe();
 		// guardarTodos();
-		
-		
-	
 
 		//// JPA REPOSITORY
 
 //		buscarTodosJpa();
 //		borrarTodoEnBloque();
 		// buscarTodosOrdenados();
-		//buscarTodosPaginacion();
-		
-		//buscarTodosPaginacionOrdenados();
-		
-		
-		
-		
-		///repoVacantes
-		
-		
-		//buscarVacantes();
-		 //guardarVacante();
-		
-		//Utilizando repoPerfiles
-		
-		//crearPerfilesAplicacion();
-		
-		
-		///RepoUsuario
-		
+		// buscarTodosPaginacion();
+
+		// buscarTodosPaginacionOrdenados();
+
+		/// repoVacantes
+
+		// buscarVacantes();
+		// guardarVacante();
+
+		// Utilizando repoPerfiles
+
+		// crearPerfilesAplicacion();
+
+		/// RepoUsuario
+
 //		crearUsuarioConUnPerfil();
 //		
 //		for (Usuario user : repoUsuarios.findAll()) {
@@ -96,73 +88,97 @@ public class JpaDemoApplication implements CommandLineRunner {
 //			System.out.println(user);
 //			
 //			System.out.println("*********************************\n");
-	//	}
-		    
-		
-		
+		// }
+
 		/*
 		 * 
 		 * Buscando un usuario por id y desplegando sus Perfiles
-		 * */
-		
-		//buscarUsuario(1);
-		
+		 */
+
+		// buscarUsuario(1);
+
 //      buscarVacantesPorEstatus();
 
-	
-	
-	
-		buscarVacantesPorDestacadoEstatus();
-	
-	
+		// buscarVacantesPorDestacadoEstatus();
+
+		// buscarVacantesSalario();
+
+		buscarVacantesPorVariosEstatus();
+
 	}
-	
+
+	/**
+	 * Query Method: Buscar vacantes por varios estatus (In)
+	 * 
+	 * 
+	 * 
+	 */
+
+	/**
+	 * Query Method: buscar Vacantes rango de Salario (Between)
+	 * 
+	 * 
+	 * 
+	 */
+
+	private void buscarVacantesPorVariosEstatus() {
+
+		// Importante! Asi se crea un arreglo de strings en Java
+		String[] estatus = new String[] { "Eliminada", "Creada" };
+		
+		
+		List<Vacante> vacantesPorEstatus = repoVacantes.findByEstatusIn(estatus);
+		vacantesPorEstatus
+				.forEach((Vacante vacante) -> System.out.println(vacante.getId() + " " + vacante.getNombre()));
+	}
+
+	private void buscarVacantesSalario() {
+		List<Vacante> VacantesSegunSalario = repoVacantes.findBySalarioBetweenOrderBySalarioDesc(10000, 20000);
+		VacantesSegunSalario.forEach((Vacante vacante) -> System.out.println(vacante.getId()));
+	}
+
 	/**
 	 * Query Method: buscar Vacantes por Destacado y estatus ordenado por id Desc
 	 * 
 	 * 
 	 * 
 	 */
-	
-	
+
 	public void buscarVacantesPorDestacadoEstatus() {
-		
-		 List<Vacante> vacantesConEstatusCreada = repoVacantes.findByEstatusAndDestacadoOrderByIdDesc("Aprobada", 1);
-	        vacantesConEstatusCreada.forEach( (Vacante vacante) ->  System.out.println(vacante.getId()));
-		
+
+		List<Vacante> vacantesConEstatusCreada = repoVacantes.findByEstatusAndDestacadoOrderByIdDesc("Aprobada", 1);
+		vacantesConEstatusCreada.forEach((Vacante vacante) -> System.out.println(vacante.getId()));
+
 	}
-	
-	
-	
+
 	/**
 	 * Qyery Method Busca vacantes por estatus y los muestra
 	 * 
 	 */
-	
+
 	public void buscarVacantesPorEstatus() {
-		 List<Vacante> vacantesConEstatusCreada = repoVacantes.findByEstatus("Creada");
-	        vacantesConEstatusCreada.forEach( (Vacante vacante) ->  System.out.println(vacante.getId()));
+		List<Vacante> vacantesConEstatusCreada = repoVacantes.findByEstatus("Creada");
+		vacantesConEstatusCreada.forEach((Vacante vacante) -> System.out.println(vacante.getId()));
 	}
-	
-	
+
 	/**
 	 * Metodo para buscar un usuario y desplegar sus perfiles asociados
 	 * 
 	 * 
 	 */
-	
+
 	public void buscarUsuario(int idUsuario) {
-		
-	Optional<Usuario> userOpc =	repoUsuarios.findById(idUsuario);
-	
-	if(userOpc.isPresent()) {
-		
-		Usuario user = userOpc.get();
-		List<Perfil> perfiles =   user.getPerfiles();
-		
-		System.out.println("********************");
-		System.out.println(user);
-		System.out.println("********************");
+
+		Optional<Usuario> userOpc = repoUsuarios.findById(idUsuario);
+
+		if (userOpc.isPresent()) {
+
+			Usuario user = userOpc.get();
+			List<Perfil> perfiles = user.getPerfiles();
+
+			System.out.println("********************");
+			System.out.println(user);
+			System.out.println("********************");
 //		for (Perfil perfil : perfiles ) {
 //			
 //			
@@ -170,90 +186,72 @@ public class JpaDemoApplication implements CommandLineRunner {
 //			System.out.println("********************");
 //			
 //		}
-		
-		perfiles.forEach((Perfil perfil ) -> System.out.println(perfil));
-	}else {
-		System.out.println("Usuario no encontrado");
+
+			perfiles.forEach((Perfil perfil) -> System.out.println(perfil));
+		} else {
+			System.out.println("Usuario no encontrado");
+		}
+
 	}
-	
-	
-		
-		
-		
-		
-	}
-	
-	
-	
-	
-	
-	//Usando crear usuario de la clase Usuario  con dos perfiles
-	
-	
+
+	// Usando crear usuario de la clase Usuario con dos perfiles
+
 	private void crearUsuarioConUnPerfil() {
-		
+
 		Usuario user = new Usuario();
-		
+
 		user.setNombre("Daiana De Moraiz");
 		user.setEmail("DaianaDeMoraiz@gmail.com");
 		user.setFechaRegistro(new Date());
 		user.setUsername("DaianaDM");
 		user.setPassword("758865");
 		user.setEstatus(1);
-		
+
 		Perfil perfil1 = new Perfil();
 		perfil1.setId(2);
-		
+
 		Perfil perfil2 = new Perfil();
 		perfil2.setId(3);
-		
+
 		user.agregarPerfil(perfil1);
 		user.agregarPerfil(perfil2);
-		
-		repoUsuarios.save(user);
-		
-		
-		
-	}
-	
-	
-	
-	
-	///RepoVacantes
 
-		private void buscarVacantes() {
-			List<Vacante> lista = repoVacantes.findAll();
-			
-			for (Vacante vacante : lista) {
-				System.out.println("id: " + vacante.getId() + " nombre: " + vacante.getNombre() + "categoria: " + vacante.getCategoria().getNombre());
-			}
+		repoUsuarios.save(user);
+
+	}
+
+	/// RepoVacantes
+
+	private void buscarVacantes() {
+		List<Vacante> lista = repoVacantes.findAll();
+
+		for (Vacante vacante : lista) {
+			System.out.println("id: " + vacante.getId() + " nombre: " + vacante.getNombre() + "categoria: "
+					+ vacante.getCategoria().getNombre());
 		}
-		
-		
-		private void guardarVacante() {
-			
-			Vacante vacante = new Vacante();
-			vacante.setNombre("Profesor de Matematicas");
-			vacante.setDescripcion("Escuela primaria solicita profesor para curso de Matematicas");
-			vacante.setFecha (new Date());
-			vacante.setSalario(8500.0);
-			vacante.setEstatus("Aprobada");
-			vacante.setDestacado(0);
-			vacante.setImagen("escuela.png");
-			vacante.setDetalles("<h1>Los requisitos para profesor de Matematicas</h1>");
-			
-			Categoria cat = new Categoria();
-			cat.setId(15); //Con establecer el id alcanza
-			vacante.setCategoria(cat);
-			
-			repoVacantes.save(vacante);
-			
-		}
-	
-	
-	
-	
-	///RepoCategorias
+	}
+
+	private void guardarVacante() {
+
+		Vacante vacante = new Vacante();
+		vacante.setNombre("Profesor de Matematicas");
+		vacante.setDescripcion("Escuela primaria solicita profesor para curso de Matematicas");
+		vacante.setFecha(new Date());
+		vacante.setSalario(8500.0);
+		vacante.setEstatus("Aprobada");
+		vacante.setDestacado(0);
+		vacante.setImagen("escuela.png");
+		vacante.setDetalles("<h1>Los requisitos para profesor de Matematicas</h1>");
+
+		Categoria cat = new Categoria();
+		cat.setId(15); // Con establecer el id alcanza
+		vacante.setCategoria(cat);
+
+		repoVacantes.save(vacante);
+
+	}
+
+	/// RepoCategorias
 
 	private void guardar() {
 
@@ -477,15 +475,15 @@ public class JpaDemoApplication implements CommandLineRunner {
 	}
 
 	/**
-	 * Usamos metodo de paginacion con ordenamiento,
-	 * EL MISMO METODO BY de pageRequest nos ofrece poner como tercer parametro un ordenamiento.
-	 * Es mezclar el de paginacion con el de ordenamiento
+	 * Usamos metodo de paginacion con ordenamiento, EL MISMO METODO BY de
+	 * pageRequest nos ofrece poner como tercer parametro un ordenamiento. Es
+	 * mezclar el de paginacion con el de ordenamiento
 	 * 
 	 */
-	
+
 	private void buscarTodosPaginacionOrdenados() {
 
-		Page<Categoria> page = repoCategorias.findAll(PageRequest.of(0, 5,Sort.by("nombre")));
+		Page<Categoria> page = repoCategorias.findAll(PageRequest.of(0, 5, Sort.by("nombre")));
 
 		System.out.println("Contar registros " + page.getTotalElements());
 		System.out.println("Total de paginas " + page.getTotalPages());
@@ -496,22 +494,19 @@ public class JpaDemoApplication implements CommandLineRunner {
 		}
 
 	}
-	
-	
-	///Creacion de perfiles en la aplicacion, usando PerfilesRepository
-	
-	
-	private void crearPerfilesAplicacion() {
-		
-		repoPerfiles.saveAll(getPerfilesAplicacion());
-		
-	}
-	
-	
-	///Metodo que hardcodea los perfiles para ser usado dentro de crearPerfilesAplicacion
 
-	
-	private List<Perfil> getPerfilesAplicacion (){
+	/// Creacion de perfiles en la aplicacion, usando PerfilesRepository
+
+	private void crearPerfilesAplicacion() {
+
+		repoPerfiles.saveAll(getPerfilesAplicacion());
+
+	}
+
+	/// Metodo que hardcodea los perfiles para ser usado dentro de
+	/// crearPerfilesAplicacion
+
+	private List<Perfil> getPerfilesAplicacion() {
 		List<Perfil> lista = new LinkedList<Perfil>();
 		Perfil per1 = new Perfil();
 		per1.setPerfil("SUPERVISOR");
@@ -523,7 +518,6 @@ public class JpaDemoApplication implements CommandLineRunner {
 		lista.add(per2);
 		lista.add(per3);
 		return lista;
-				
-				
-		}
+
+	}
 }
