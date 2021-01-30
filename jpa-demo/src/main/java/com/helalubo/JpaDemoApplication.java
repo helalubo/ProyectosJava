@@ -1,10 +1,10 @@
 package com.helalubo;
 
 import java.util.Date;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
+import java.util.function.Consumer;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -105,10 +105,45 @@ public class JpaDemoApplication implements CommandLineRunner {
 		 * Buscando un usuario por id y desplegando sus Perfiles
 		 * */
 		
-		buscarUsuario(1);
+		//buscarUsuario(1);
 		
+//      buscarVacantesPorEstatus();
+
+	
+	
+	
+		buscarVacantesPorDestacadoEstatus();
+	
+	
+	}
+	
+	/**
+	 * Query Method: buscar Vacantes por Destacado y estatus ordenado por id Desc
+	 * 
+	 * 
+	 * 
+	 */
+	
+	
+	public void buscarVacantesPorDestacadoEstatus() {
+		
+		 List<Vacante> vacantesConEstatusCreada = repoVacantes.findByEstatusAndDestacadoOrderByIdDesc("Aprobada", 1);
+	        vacantesConEstatusCreada.forEach( (Vacante vacante) ->  System.out.println(vacante.getId()));
 		
 	}
+	
+	
+	
+	/**
+	 * Qyery Method Busca vacantes por estatus y los muestra
+	 * 
+	 */
+	
+	public void buscarVacantesPorEstatus() {
+		 List<Vacante> vacantesConEstatusCreada = repoVacantes.findByEstatus("Creada");
+	        vacantesConEstatusCreada.forEach( (Vacante vacante) ->  System.out.println(vacante.getId()));
+	}
+	
 	
 	/**
 	 * Metodo para buscar un usuario y desplegar sus perfiles asociados
@@ -128,13 +163,15 @@ public class JpaDemoApplication implements CommandLineRunner {
 		System.out.println("********************");
 		System.out.println(user);
 		System.out.println("********************");
-		for (Perfil perfil : perfiles ) {
-			
-			
-			System.out.println(perfil);
-			System.out.println("********************");
-			
-		}
+//		for (Perfil perfil : perfiles ) {
+//			
+//			
+//			System.out.println(perfil);
+//			System.out.println("********************");
+//			
+//		}
+		
+		perfiles.forEach((Perfil perfil ) -> System.out.println(perfil));
 	}else {
 		System.out.println("Usuario no encontrado");
 	}
