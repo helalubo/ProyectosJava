@@ -46,6 +46,12 @@ public class VacanteServiceJpa implements IVacanteService {
 		vacantesRepo.save(vacante);
 		
 	}
+
+	@Override
+	public List<Vacante> buscarDestacadas() {
+		// TODO Auto-generated method stub
+		return vacantesRepo.findByEstatusAndDestacadoOrderByIdDesc("aprobada", 1);
+	}
 	
 	
 	

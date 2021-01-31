@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 import net.helalubo.model.Vacante;
 import net.helalubo.service.IVacanteService;
@@ -78,29 +78,17 @@ public class HomeController {
 	@GetMapping("/")
 	public String mostrarHome(Model model) {
 
-		// StringBuilder sb = new StringBuilder();
-		// sb.append("Bienvenido").append("Alejandro De Moraiz");
 
-		/*
-		 * sb.append("Bienvenidos a Empleos App"); model.addAttribute("user",
-		 * sb.toString());
-		 */
-//		String nombre = "Auxiliar de Contabilidad";
-//		Date fechaPub = new Date();
-//		double salario = 9000.0;
-//		boolean vigente = true;
-//
-//		model.addAttribute("nombre", nombre);
-//		model.addAttribute("fechaPub", fechaPub);
-//		model.addAttribute("salario", salario);
-//		model.addAttribute("vigente", vigente);
-//
-//		model.addAttribute("fecha", new Date());
-
-		// Siempre que pueda usar el servicio.
-		List<Vacante> lista = vacanteService.buscarTodas();
-		model.addAttribute("vacantes", lista);
 
 		return "home";
 	}
+	
+	//ModelAttribute sirve para agregar todos los atributos que quedamos, y todos los atributos que instanciemos aqui van a estar habilitados para 
+	//Todos los metodos de este controlador
+	
+	@ModelAttribute
+	public void setGenericos(Model model) {
+		model.addAttribute("vacantes", vacanteService.buscarDestacadas());
+	}
+	
 }
