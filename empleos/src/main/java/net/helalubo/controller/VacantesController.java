@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -39,6 +40,7 @@ public class VacantesController {
 	private IVacanteService vacanteService;
 	
 	@Autowired
+	//@Qualifier("categoriasServiceJpa") //con esto marcamos que la clase que sera implementada por la interface ICategoriaService sera categoriasServiceJpa
 	private ICategoriaService categoriaService;
 	
 	@GetMapping("/delete")
@@ -58,6 +60,9 @@ public class VacantesController {
 		List<Vacante> listaDeVacantes = vacanteService.buscarTodas();
 		//System.out.print(vacante);
 		model.addAttribute("vacantes",listaDeVacantes);
+		
+		
+	
 		return "vacantes/listVacantes";
 	}
 	
@@ -88,7 +93,7 @@ public class VacantesController {
 	
 	
 	@PostMapping("/save")
-	public String Guardar(Vacante vacante,BindingResult result , RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multiPart){
+	public String Guardar(Vacante vacante,BindingResult result , RedirectAttributes attributes, @RequestParam("archivoImagen") MultipartFile multiPart, Model model){
 		
 		
 		//En caso de que el objeto result detecte algun tipo de error con hasErrors y nos retornara denuevo al formulario.
@@ -102,6 +107,9 @@ public class VacantesController {
 			System.out.print("Ocurrio un error: " + error.getDefaultMessage());
 		}
 		if(result.hasErrors()) {
+			
+			
+			model.addAttribute("categorias",categoriaService.buscarTodas());
 			return "vacantes/formVacante";
 		}
 		

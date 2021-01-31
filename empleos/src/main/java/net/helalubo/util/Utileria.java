@@ -17,7 +17,7 @@ public class Utileria {
 		String nombreOriginal = multiPart.getOriginalFilename();
 		
 		//Agrego guiones reemplazando espacios
-		nombreOriginal =nombreOriginal.replace(" ", "-");
+		nombreOriginal = nombreOriginal.replace(" ", "-");
 		String nombreFinal= randomAlphaNumeric(8) + nombreOriginal;
 		
 		try {
@@ -28,7 +28,7 @@ public class Utileria {
 			
 			multiPart.transferTo(imageFile);
 			
-			return nombreOriginal; 
+			return nombreFinal; 
 			
 			
 		}catch (IOException e) {

@@ -1,18 +1,25 @@
 package net.helalubo.model;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.LinkedList;
-import java.util.List;
 
-import net.helalubo.service.IVacanteService;
-import net.helalubo.service.VacantesServiceImpl;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
+import javax.persistence.Transient;
+
+
 
 //Los modelos deben ser java beans
-
+@Entity
+@Table(name= "vacantes")
 public class Vacante {
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	private String nombre;
 	private String descripcion;
@@ -24,6 +31,17 @@ public class Vacante {
 	private String estatus;
 	private String detalles;
 	
+	//Transient es para poder ignorar un atributo con respecto a su mapeo
+	//@Transient
+	/**
+	 *Para hacer relaciones de uno a uno se utiliza el decorador OneToOne,
+	 *Con el podemos unir por id de FK entre tablas
+	 *Es importante que dentro del JoinColumn pongamos la FK la cual es el nombre de la fk en la base de datos 
+	 * 
+	 */
+	
+	@OneToOne
+	@JoinColumn(name ="idCategoria")
 	private Categoria categoria;
 
 	public Vacante() {
@@ -220,5 +238,8 @@ public class Vacante {
 //		return lista;
 //
 //	}
+	
+	
+	
 
 }

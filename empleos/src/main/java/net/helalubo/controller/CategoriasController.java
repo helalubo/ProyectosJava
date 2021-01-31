@@ -3,6 +3,7 @@ package net.helalubo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,7 @@ import net.helalubo.model.Vacante;
 import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IVacanteService;
 
+
 @Controller
 @RequestMapping(value = "/categorias")
 //Si quiero hacer subdirectorios en la url debemos poner el requets mapping a niver  de la clase, esta es otra forma de usar request mapping
@@ -31,6 +33,7 @@ public class CategoriasController {
 	/// ejemplo formularios de un frond.
 
 	@Autowired
+	//@Qualifier("categoriasServiceJpa")
 	private ICategoriaService categoriaService;
 
 	@RequestMapping("/index")
