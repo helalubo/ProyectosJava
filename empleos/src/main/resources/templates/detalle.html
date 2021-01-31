@@ -7,7 +7,7 @@
     <meta name="author" content="">
 <!--     <link rel="icon" th:href="favicon.ico"> -->
 <!-- Agrego ico de pagina -->
-<link rel="shortcut icon" type="image/png" th:href="@{/images/helalubo.ico}"/>
+<link rel="shortcut icon" type="image/png" th:href="@{/logos/helalubo.ico}"/>
 
     <title>EmpleosApp | Detalles de la Oferta de Trabajo</title>
     <!-- Bootstrap core CSS -->
@@ -22,14 +22,17 @@
     <header th:insert="fragments/menu.html :: menu-principal">
      
     </header>
-
+		<br>
+		<br>
+		<br>
+		<br>
     <main role="main">
       <hr>
       <div class="container"> 
 
         <div class="row">
           <div class="col-md-3">            
-            <img th:src="@{/images/{img} (img=${vacante.imagen})}" class="rounded mx-auto d-block"  alt="Generic placeholder image" width="220" height="220">            
+            <img th:src="@{/logos/{img} (img=${vacante.imagen})}" class="rounded mx-auto d-block"  alt="Generic placeholder image" width="220" height="220">            
           </div>
           <div class="col-md-9">
             <div class="card">

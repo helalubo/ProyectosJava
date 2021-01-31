@@ -1,6 +1,6 @@
 
-<nav th:fragment="menu-principal" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-	<a class="navbar-brand" th:href="@{/}">EmpleosApp</a>
+<nav th:fragment="menu-principal" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark " >
+	<a class="navbar-brand" th:href="@{/}"><img th:src="@{/logos/helalubo.png}" alt="" width="90" height="90"> <strong> HelaJobs </strong></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarsExampleDefault"
 		aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -8,6 +8,7 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
+	
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item"><a class="nav-link active"th:href="@{/}">Inicio</a>
@@ -27,4 +28,6 @@
 		<a class="btn btn-primary" href="#">Ingresar</a>&nbsp; <a
 			class="btn btn-primary" href="#">Registrarse</a>
 	</div>
+	
 </nav>
+	
