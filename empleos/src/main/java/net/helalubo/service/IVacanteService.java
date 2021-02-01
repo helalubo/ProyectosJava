@@ -14,5 +14,7 @@ public interface IVacanteService {
 	
 	List<Vacante> buscarDestacadas();
 	
+	void eliminar(Integer id);
+	
 	
 }

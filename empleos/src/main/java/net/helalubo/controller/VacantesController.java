@@ -43,14 +43,15 @@ public class VacantesController {
 	//@Qualifier("categoriasServiceJpa") //con esto marcamos que la clase que sera implementada por la interface ICategoriaService sera categoriasServiceJpa
 	private ICategoriaService categoriaService;
 	
-	@GetMapping("/delete")
-	public String eliminar(@RequestParam("id") int idVancante, Model model) {
+	@GetMapping("/delete/{id}")
+	public String eliminar(@PathVariable("id") int idVancante,RedirectAttributes attributes) {
 		
+		System.out.println("Se a eliminado la vacante con id: " + idVancante);
 		
-		model.addAttribute("id",idVancante);
-		System.out.print("Borrando id " + idVancante);
-		
-		return "mensaje";
+		attributes.addFlashAttribute("msg", "La vacante fue eliminada con exito");
+		vacanteService.eliminar(idVancante);
+	
+		return "redirect:/vacantes/index";
 	}
 	
 	

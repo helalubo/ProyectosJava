@@ -33,13 +33,10 @@
 						title="Crear nueva Oferta de Trabajo" role="button"><i
 						class="fas fa-file" aria-hidden="true"></i> Nueva</a>
 					<hr>
-					
-					<div th:if="${msg != null}" class='alert alert-success' th:text="${msg}" role="alert">
-					
-					 
-					
-					</div>
-					
+
+					<div th:if="${msg != null}" class='alert alert-success'
+						th:text="${msg}" role="alert"></div>
+
 					<table class="table table-hover">
 						<thead class="thead-light">
 							<tr>
@@ -62,12 +59,11 @@
 									th:unless="${vacante.destacado ==1}" class="badge bg-danger">No</span>
 								</td>
 								<td><a href="#" class="btn btn-success btn-sm"
-									role="button" title="Editar el registro."><i
-										class="fas fa-pencil-alt" aria-hidden="true"></i></a> <a href="#"
-									onclick="return confirm('¿Estas seguro?')"
-									class="btn btn-success btn-sm" role="button"
-									title="Eliminar el registro."><i class="fas fa-trash"
-										aria-hidden="true"></i></a></td>
+									role="button" title="Editar el registro.">
+									<i class="fas fa-pencil-alt" aria-hidden="true"></i></a> 
+										<a  th:href="@{/vacantes/delete/{id} (id=${vacante.id}) }" onclick="return confirm('¿Estas seguro?')" class="btn btn-success btn-sm" role="button"
+									title="Eliminar el registro.">
+									<i class="fas fa-trash" aria-hidden="true"></i></a></td>
 							</tr>
 
 
@@ -88,8 +84,8 @@
 	<!-- Bootstrap core JavaScript
     ================================================== -->
 	<!-- Placed at the end of the document so the pages load faster -->
-	
-	
+
+
 
 	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 	<script th:src="@{/bootstrap/js/bootstrap.min.js}"></script>

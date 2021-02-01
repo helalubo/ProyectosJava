@@ -1,6 +1,9 @@
 
-<nav th:fragment="menu-principal" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark " >
-	<a class="navbar-brand" th:href="@{/}"><img th:src="@{/logos/helalubo.png}" alt="" width="90" height="90"> <strong> HelaJobs </strong></a>
+<nav th:fragment="menu-principal"
+	class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ">
+	<a class="navbar-brand" th:href="@{/}"><img
+		th:src="@{/logos/helalubo.png}" alt="" width="40" height="40"> <strong>
+			HelaJobs </strong></a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarsExampleDefault"
 		aria-controls="navbarsExampleDefault" aria-expanded="false"
@@ -8,26 +11,25 @@
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
-	
+
 	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
 		<ul class="navbar-nav mr-auto">
-			<li class="nav-item"><a class="nav-link active"th:href="@{/}">Inicio</a>
-			</li>
+			
 			<li class="nav-item"><a th:href="@{/categorias/index}"
 				class="nav-link">Categorias</a></li>
 			<li class="nav-item"><a th:href="@{/categorias/create}"
 				class="nav-link" href="">Crear Categoria</a></li>
-				
-				<li class="nav-item"><a th:href="@{/vacantes/index}"
+
+			<li class="nav-item"><a th:href="@{/vacantes/index}"
 				class="nav-link" href="">ver Vacantes</a></li>
-				
-				
-						<li class="nav-item"><a th:href="@{/vacantes/create}"
+
+
+			<li class="nav-item"><a th:href="@{/vacantes/create}"
 				class="nav-link" href="">crear Vacantes</a></li>
 		</ul>
 		<a class="btn btn-primary" href="#">Ingresar</a>&nbsp; <a
 			class="btn btn-primary" href="#">Registrarse</a>
 	</div>
-	
+
 </nav>
-	
+
