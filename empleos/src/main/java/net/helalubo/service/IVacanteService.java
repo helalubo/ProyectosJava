@@ -2,6 +2,8 @@ package net.helalubo.service;
 
 import java.util.List;
 
+
+
 import net.helalubo.model.Vacante;
 
 public interface IVacanteService {
@@ -14,7 +16,14 @@ public interface IVacanteService {
 	
 	List<Vacante> buscarDestacadas();
 	
+	
+	
 	void eliminar(Integer id);
+	
+	
+	List<Vacante> buscarVacantesPorCategoria(Integer idCategoria);
+
+	void GuardarTodas(List<Vacante> vacantes);
 	
 	
 }

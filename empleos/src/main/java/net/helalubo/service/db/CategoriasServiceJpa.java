@@ -8,6 +8,7 @@ import org.springframework.context.annotation.Primary;
 import org.springframework.stereotype.Service;
 
 import net.helalubo.model.Categoria;
+import net.helalubo.model.Vacante;
 import net.helalubo.repository.CategoriasRepository;
 import net.helalubo.service.ICategoriaService;
 
@@ -55,5 +56,16 @@ public class CategoriasServiceJpa implements ICategoriaService {
 		categoriasRepo.save(categoria);
 
 	}
+
+	@Override
+	public void eliminar(Integer id) {
+		
+		
+		categoriasRepo.deleteById(id);
+		
+		
+	}
+
+
 
 }

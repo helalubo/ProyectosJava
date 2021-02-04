@@ -60,6 +60,22 @@ public class VacanteServiceJpa implements IVacanteService {
 		vacantesRepo.deleteById(id);
 		
 	}
+
+	@Override
+	public List<Vacante> buscarVacantesPorCategoria(Integer idCategoria) {
+		// TODO Auto-generated method stub
+		Categoria categoria = new Categoria();
+		categoria.setId(idCategoria);
+		
+		return vacantesRepo.findByCategoria(categoria);
+	}
+	
+
+	@Override
+	public void GuardarTodas(List<Vacante> vacantes)
+	{
+		vacantesRepo.saveAll(vacantes);
+	}
 	
 	
 	

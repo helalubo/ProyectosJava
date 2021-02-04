@@ -3,7 +3,9 @@ package net.helalubo.repository;
 import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
+import net.helalubo.model.Categoria;
 import net.helalubo.model.Vacante;
 
 public interface VacantesRepository extends JpaRepository<Vacante, Integer> {
@@ -21,5 +23,8 @@ public interface VacantesRepository extends JpaRepository<Vacante, Integer> {
 	
 	
 	List<Vacante> findByEstatusIn(String[] estatus);
+	
+	//@Query("Select * from vacantes where idCategoria = ?1")
+	List<Vacante> findByCategoria(Categoria categoria);
 	
 }

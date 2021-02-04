@@ -98,6 +98,18 @@ public class VacantesServiceImpl implements IVacanteService {
 		// TODO Auto-generated method stub
 		
 	}
+
+	@Override
+	public List<Vacante> buscarVacantesPorCategoria(Integer idCategoria) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public void GuardarTodas(List<Vacante> vacantes) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 	
 

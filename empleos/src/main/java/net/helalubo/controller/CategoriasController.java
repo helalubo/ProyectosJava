@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -36,6 +37,10 @@ public class CategoriasController {
 	@Autowired
 	//@Qualifier("categoriasServiceJpa")
 	private ICategoriaService categoriaService;
+	
+	
+	@Autowired
+	private IVacanteService vacanteService;
 
 	@RequestMapping("/index")
 	public String MostrarIndex(Model model) {
@@ -78,5 +83,31 @@ public class CategoriasController {
 	
 
 
+	@GetMapping("/delete/{id}")
+	public String Eliminar(@PathVariable("id") Integer idCategoria,RedirectAttributes attributes) {
+		
+		
+		
+		List<Vacante> vacantesDeLaCategoriaAEliminar = vacanteService.buscarVacantesPorCategoria(idCategoria);
+		Categoria categoriaAux = new Categoria();
+		categoriaAux.setId(100); //100 Corresponde a Otra
+		
+		for (Vacante vacante : vacantesDeLaCategoriaAEliminar) {
+			
+			vacante.setCategoria(categoriaAux);
+		}
+		
+		vacanteService.GuardarTodas(vacantesDeLaCategoriaAEliminar);
+		
+		categoriaService.eliminar(idCategoria);
+		
+		
+		
+		attributes.addFlashAttribute("msg", "La Categoria fue eliminada con exito");
+		
+		return "redirect:/categorias/index";
+		
+		
+	}
 
 }
