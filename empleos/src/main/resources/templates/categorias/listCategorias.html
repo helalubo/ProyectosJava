@@ -6,7 +6,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/png" th:href="@{/logos/helalubo.ico}"/>
 
 <title>EmpleosApp | Listado de Categorías</title>
 <!-- Bootstrap core CSS -->
@@ -55,7 +55,8 @@
 								
 								
 								
-								<td><a href="#" class="btn btn-success btn-sm"
+								<td><a th:href="@{/categorias/edit/{id} (id=${categoria.id}) }"
+								 class="btn btn-success btn-sm"
 									role="button" title="Editar"><i class="fas fa-pencil-alt"
 										aria-hidden="true"></i></a> 
 										

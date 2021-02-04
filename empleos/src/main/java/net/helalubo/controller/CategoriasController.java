@@ -54,7 +54,7 @@ public class CategoriasController {
 	}
 
 	@RequestMapping(value = "/create", method = RequestMethod.GET)
-	public String Crear() {
+	public String Crear(Categoria categoria) {
 
 		return "categorias/formCategoria";
 	}
@@ -90,7 +90,7 @@ public class CategoriasController {
 		
 		List<Vacante> vacantesDeLaCategoriaAEliminar = vacanteService.buscarVacantesPorCategoria(idCategoria);
 		Categoria categoriaAux = new Categoria();
-		categoriaAux.setId(100); //100 Corresponde a Otra
+		categoriaAux.setId(0); //0 Corresponde a Otra
 		
 		for (Vacante vacante : vacantesDeLaCategoriaAEliminar) {
 			
@@ -107,6 +107,21 @@ public class CategoriasController {
 		
 		return "redirect:/categorias/index";
 		
+		
+	}
+	
+	
+	@GetMapping("/edit/{id}")
+	public String editar(@PathVariable("id") int idCategoria,Model model) {
+		
+		
+		
+		Categoria categoria = categoriaService.buscarPorId(idCategoria);
+		
+//		model.addAttribute("categorias",categoriaService.buscarTodas());
+		model.addAttribute("categoria", categoria);
+		
+		return "/categorias/formCategoria";
 		
 	}
 

@@ -6,7 +6,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/png" th:href="@{/logos/helalubo.ico}"/>
 
 <title>EmpleosApp | Aplicación para publicar Ofertas de Trabajo.</title>
 <!-- Bootstrap core CSS -->
@@ -61,7 +61,7 @@
 				<div class="col-md-9">
 					<h2 th:text="${vacante.nombre}"></h2>
 					<h6 class="card-title">
-						<strong>Categoría: </strong> <span th:text="${vacante.nombre}" ></span>
+						<strong>Categoría: </strong> <span th:text="${vacante.categoria.nombre}" ></span>
 					</h6>
 					<h6 class="card-title" th:text="  ${vacante.fecha}">
 						<strong>Publicado: </strong> <span> </span>

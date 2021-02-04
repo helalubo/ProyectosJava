@@ -6,7 +6,7 @@
 	content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <meta name="description" content="">
 <meta name="author" content="">
-<link rel="icon" href="favicon.ico">
+<link rel="shortcut icon" type="image/png" th:href="@{/logos/helalubo.ico}"/>
 
 <title>EmpleosApp | Creación de Categorías</title>
 <!-- Bootstrap core CSS -->
@@ -52,10 +52,14 @@
 						<div class="row">
 							<div class="col-md-6">
 								<div class="form-group">
-									<label for="nombre" >Nombre</label> <input type="text"
+									<label for="nombre" >Nombre</label> 
+									
+									<input type="hidden" th:field="*{id}">
+									<input type="text"
 										class="form-control" id="nombre" name="nombre"
 										placeholder="Escriba el nombre de la categoria"
-										required="required" >
+										required="required" th:field="*{nombre}">
+											
 								</div>
 							</div>
 						</div>
@@ -64,7 +68,7 @@
 								<div class="form-group">
 									<label for="descripcion">Descripción</label>
 									<textarea class="form-control" name="descripcion"
-										id="descripcion" rows="2"></textarea>
+										id="descripcion" rows="2" th:field="*{descripcion}"></textarea>
 								</div>
 							</div>
 						</div>
