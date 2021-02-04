@@ -15,6 +15,7 @@ import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -48,8 +49,8 @@ public class VacantesController {
 		
 		System.out.println("Se a eliminado la vacante con id: " + idVancante);
 		
-		attributes.addFlashAttribute("msg", "La vacante fue eliminada con exito");
 		vacanteService.eliminar(idVancante);
+		attributes.addFlashAttribute("msg", "La vacante fue eliminada con exito");
 	
 		return "redirect:/vacantes/index";
 	}
@@ -70,9 +71,9 @@ public class VacantesController {
 	@GetMapping("/create")
 	public String Crear(Vacante vacante, Model model){
 		
-	
 		
-		model.addAttribute("categorias", categoriaService.buscarTodas());
+		
+		//model.addAttribute("categorias", categoriaService.buscarTodas());
 		return "vacantes/formVacante";
 	}
 	
@@ -110,7 +111,7 @@ public class VacantesController {
 		if(result.hasErrors()) {
 			
 			
-			model.addAttribute("categorias",categoriaService.buscarTodas());
+			//model.addAttribute("categorias",categoriaService.buscarTodas());
 			return "vacantes/formVacante";
 		}
 		
@@ -182,4 +183,31 @@ public class VacantesController {
 		SimpleDateFormat dateFormat = new SimpleDateFormat("dd-MM-yyyy");
 		webDataBinder.registerCustomEditor(java.util.Date.class, new CustomDateEditor(dateFormat, false));
 	}
+	
+	
+	///Metodo para editar vacante
+	@GetMapping("/edit/{id}")
+	public String editar(@PathVariable("id") int idVacante,Model model) {
+		
+		
+		
+		Vacante vacante = vacanteService.buscarPorId(idVacante);
+		
+//		model.addAttribute("categorias",categoriaService.buscarTodas());
+		model.addAttribute("vacante", vacante);
+		
+		return "/vacantes/formVacante";
+		
+	}
+	
+	//Metodo para agregar datos que son comunes para todo el controlador 
+	//Esto gracias al decorador ModelAttribute
+	@ModelAttribute
+	public void setGenericos (Model model) {
+		
+		model.addAttribute("categorias",categoriaService.buscarTodas());
+	}
+	
+	
+	
 }
