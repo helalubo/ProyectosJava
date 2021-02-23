@@ -18,6 +18,13 @@ public class Perfil {
 	private String perfil;
 	
 	
+	public Perfil() {
+		
+	}
+	
+	public Perfil(int id) {
+		this.id = id;
+	}
 	
 	
 	
