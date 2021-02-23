@@ -1,25 +1,29 @@
 package net.helalubo.controller;
 
-import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collection;
 import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.ObjectError;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
 import net.helalubo.model.Perfil;
 import net.helalubo.model.Usuario;
 import net.helalubo.model.Vacante;
+import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IUsuarioService;
 import net.helalubo.service.IVacanteService;
 
@@ -36,6 +40,9 @@ public class HomeController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
+	
+	@Autowired
+	private ICategoriaService categoriaService;
 
 	@GetMapping("/signup")
 	public String Crear(Vacante vacante, Model model){
@@ -126,8 +133,40 @@ public class HomeController {
 	@GetMapping("/")
 	public String mostrarHome(Model model) {
 
+		
+		
+		
 		return "home";
 	}
+	
+	
+	@GetMapping("/search")
+	public String buscar(@ModelAttribute("search") Vacante vacante ,Model model) {
+
+		
+//		model.addAttribute("vacantes", vacanteService.buscarVacantesPorCategoriaYDescripcion(vacante.getCategoria().getId(), vacante.getDescripcion()));
+		
+		System.out.println(vacante);
+		Example<Vacante> example = Example.of(vacante);
+		List<Vacante> lista = vacanteService.buscarByExample(example);
+		
+		model.addAttribute("vacantes", lista);
+		
+		return "home";
+	}
+	
+	/**InitBinder para Strings si los detecta vacios en el Data Bingding los settea a null
+	 * @param Binder
+	 * 
+	 * 
+	 * 
+	 * */
+	@InitBinder
+	public void initBinder(WebDataBinder binder) {
+		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
+	}
+	
+	
 
 	// ModelAttribute sirve para agregar todos los atributos que quedamos, y todos
 	// los atributos que instanciemos aqui van a estar habilitados para
@@ -135,7 +174,18 @@ public class HomeController {
 
 	@ModelAttribute
 	public void setGenericos(Model model) {
+		
+		Vacante vacanteSearch = new Vacante();
+		
+		System.out.println("CREO VACANTE SEARCH");
+		System.out.println(vacanteSearch);
+		System.out.println("CREO VACANTE SEARCH");
+		
+		vacanteSearch.reset();
+	
 		model.addAttribute("vacantes", vacanteService.buscarDestacadas());
+		model.addAttribute("categorias", categoriaService.buscarTodas());
+		model.addAttribute("search", vacanteSearch);
 	}
 
 }

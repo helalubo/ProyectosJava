@@ -5,12 +5,12 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
+import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 
 import net.helalubo.model.Categoria;
 import net.helalubo.model.Vacante;
 import net.helalubo.repository.VacantesRepository;
-import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IVacanteService;
 
 @Service
@@ -76,7 +76,13 @@ public class VacanteServiceJpa implements IVacanteService {
 	{
 		vacantesRepo.saveAll(vacantes);
 	}
-	
+
+	@Override
+	public List<Vacante> buscarByExample(Example<Vacante> example) {
+		// TODO Auto-generated method stub
+		return vacantesRepo.findAll(example);
+	}
+
 	
 	
 

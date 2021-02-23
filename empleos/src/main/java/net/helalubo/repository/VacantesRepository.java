@@ -27,4 +27,7 @@ public interface VacantesRepository extends JpaRepository<Vacante, Integer> {
 	//@Query("Select * from vacantes where idCategoria = ?1")
 	List<Vacante> findByCategoria(Categoria categoria);
 	
+	
+	List<Vacante> findByCategoriaAndDescripcion(Categoria categoria, String  descripcion);
+	
 }

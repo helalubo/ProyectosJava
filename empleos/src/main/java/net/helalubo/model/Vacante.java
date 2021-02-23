@@ -20,7 +20,7 @@ public class Vacante {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private int id;
+	private Integer id;
 	private String nombre;
 	private String descripcion;
 	private Date fecha;
@@ -44,39 +44,39 @@ public class Vacante {
 	@JoinColumn(name ="idCategoria")
 	private Categoria categoria;
 
-	public Vacante() {
+//	public Vacante() {
+//
+//	}
 
-	}
+//	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario, Integer destacado,
+//			String imagen, String estatus, String detalles) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.descripcion = descripcion;
+//		this.fecha = fecha;
+//		this.salario = salario;
+//		this.destacado = destacado;
+//		this.imagen = imagen;
+//		this.estatus = estatus;
+//		this.detalles = detalles;
+//	}
+//
+//	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario, Integer destacado) {
+//		super();
+//		this.id = id;
+//		this.nombre = nombre;
+//		this.descripcion = descripcion;
+//		this.fecha = fecha;
+//		this.salario = salario;
+//		this.destacado = destacado;
+//	}
 
-	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario, Integer destacado,
-			String imagen, String estatus, String detalles) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.fecha = fecha;
-		this.salario = salario;
-		this.destacado = destacado;
-		this.imagen = imagen;
-		this.estatus = estatus;
-		this.detalles = detalles;
-	}
-
-	public Vacante(int id, String nombre, String descripcion, Date fecha, Double salario, Integer destacado) {
-		super();
-		this.id = id;
-		this.nombre = nombre;
-		this.descripcion = descripcion;
-		this.fecha = fecha;
-		this.salario = salario;
-		this.destacado = destacado;
-	}
-
-	public int getId() {
+	public Integer getId() {
 		return id;
 	}
 
-	public void setId(int id) {
+	public void setId(Integer id) {
 		this.id = id;
 	}
 
@@ -239,7 +239,10 @@ public class Vacante {
 //
 //	}
 	
-	
+	public void reset() {
+		this.imagen = null;
+		
+	}
 	
 
 }
