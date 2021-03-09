@@ -6,6 +6,8 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import net.helalubo.model.Categoria;
@@ -81,6 +83,13 @@ public class VacanteServiceJpa implements IVacanteService {
 	public List<Vacante> buscarByExample(Example<Vacante> example) {
 		// TODO Auto-generated method stub
 		return vacantesRepo.findAll(example);
+	}
+
+	@Override
+	public Page<Vacante> buscarTodas(Pageable page) {
+		// TODO Auto-generated method stub
+		return vacantesRepo.findAll(page);
+		
 	}
 
 	

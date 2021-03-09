@@ -8,6 +8,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -147,7 +148,17 @@ public class HomeController {
 //		model.addAttribute("vacantes", vacanteService.buscarVacantesPorCategoriaYDescripcion(vacante.getCategoria().getId(), vacante.getDescripcion()));
 		
 		System.out.println(vacante);
-		Example<Vacante> example = Example.of(vacante);
+		
+//		Esta seria la configuracion para poder usar el LIKE en los querys, usando un objeto
+//		ExampleMarcher y pasandole como primer parametro del WithMartcher el nombre de la propiedad
+//		y luego el metodo contains para que verifique si esta siendo contenido
+//		Where descripcion like '%?%'
+		ExampleMatcher matcher = ExampleMatcher.matching()
+				.withMatcher("descripcion", ExampleMatcher.GenericPropertyMatchers.contains());
+		
+		//agregamos el matcher a el example como segundo parametro en Example.of. IMPORTANTE*****
+		
+		Example<Vacante> example = Example.of(vacante,matcher);
 		List<Vacante> lista = vacanteService.buscarByExample(example);
 		
 		model.addAttribute("vacantes", lista);
