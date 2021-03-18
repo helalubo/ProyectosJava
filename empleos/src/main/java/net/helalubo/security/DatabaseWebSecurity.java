@@ -56,6 +56,14 @@ public class DatabaseWebSecurity extends WebSecurityConfigurerAdapter {
 				
 				).permitAll()
 		
+		
+		//Asignar permisos a urls por roles, en hasanyAuthority ponemos cuales son los roles habilitados para la url.
+		// se escribe demtrp de un antMatchers con el http.authorizeRequest como la configuracion de ver por
+		//pagionacion los recursos de cada rol
+		
+		.antMatchers("/vacantes/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
+		.antMatchers("/categorias/**").hasAnyAuthority("SUPERVISOR","ADMINISTRADOR")
+		.antMatchers("/usuarios/**").hasAnyAuthority("ADMINISTRADOR,SUPERVISOR")
 		//todas las demas URLs de la aplicacion requieren autenticacion
 		.anyRequest().authenticated()
 		//El formulario de login no requiere autenticacion
