@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,8 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.logout.SecurityContextLogoutHandler;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -21,7 +24,9 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.helalubo.model.Perfil;
@@ -49,14 +54,28 @@ public class HomeController {
 	@Autowired
 	private ICategoriaService categoriaService;
 
+	// USAREMOS EL METODO .encoder(passwordstring) para poder hacer la encriptacion.
+
+	@Autowired
+	private PasswordEncoder PasswordEncoder;
+
+	@GetMapping("/login")
+	public String mostrarLogin(Vacante vacante, Model model) {
+
+		return "formLogin";
+	}
+
 	@GetMapping("/signup")
 	public String Crear(Vacante vacante, Model model) {
 
 		return "/usuarios/formRegistro";
 	}
 
+	// recordar configurar la seguridad del password con encriptacion
+
 	@PostMapping("/signup")
 	public String GuardaRegistro(Usuario usuario, BindingResult result, RedirectAttributes attributes, Model model) {
+
 		for (ObjectError error : result.getAllErrors()) {
 
 			System.out.print("Ocurrio un error: " + error.getDefaultMessage());
@@ -67,6 +86,12 @@ public class HomeController {
 			return "/usuarios/formRegistro";
 		}
 
+		// configuracion para encriptar contraseña
+
+		String pwdplano = usuario.getPassword();
+		String pwdEncriptado = PasswordEncoder.encode(pwdplano);
+
+		usuario.setPassword(pwdEncriptado);
 		usuario.setPerfiles(Arrays.asList(new Perfil(3)));
 		usuario.setFechaRegistro(new Date());
 		usuario.setEstatus(1);
@@ -78,6 +103,16 @@ public class HomeController {
 
 		return "redirect:/";
 
+	}
+
+	@GetMapping("/logout")
+	public String logout(HttpServletRequest request) {
+		SecurityContextLogoutHandler logoutHandler = new SecurityContextLogoutHandler();
+
+		// este es el metodo que destruye la sesion
+		logoutHandler.logout(request, null, null);
+
+		return "redirect:/login";
 	}
 
 	@GetMapping("/vacantes")
@@ -235,6 +270,16 @@ public class HomeController {
 		model.addAttribute("vacantes", vacanteService.buscarDestacadas());
 		model.addAttribute("categorias", categoriaService.buscarTodas());
 		model.addAttribute("search", vacanteSearch);
+	}
+
+	@GetMapping("/bcrypt/{texto}")
+	// para que devuelva texto plano directamente al nav de internet en vez de una
+	// vista
+	@ResponseBody
+	public String encriptar(@PathVariable("texto") String texto) {
+
+		return texto + " Encriptado: " + PasswordEncoder.encode(texto);
+
 	}
 
 }
