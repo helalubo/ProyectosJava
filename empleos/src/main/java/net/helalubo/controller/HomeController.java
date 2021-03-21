@@ -5,10 +5,14 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -19,7 +23,6 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 
 import net.helalubo.model.Perfil;
 import net.helalubo.model.Usuario;
@@ -33,7 +36,8 @@ import net.helalubo.service.IVacanteService;
 @Controller
 public class HomeController {
 
-//Cuando quiero usar un servicio (previamente marcado con la etiqueta @Service ) tengo que usar la etiqueta  @Autowired, esto indicara
+	// Cuando quiero usar un servicio (previamente marcado con la etiqueta @Service
+	// ) tengo que usar la etiqueta @Autowired, esto indicara
 	// Que estoy utilizando un servicio con metodos ya declarados
 
 	@Autowired
@@ -41,21 +45,16 @@ public class HomeController {
 
 	@Autowired
 	private IUsuarioService usuarioService;
-	
+
 	@Autowired
 	private ICategoriaService categoriaService;
 
 	@GetMapping("/signup")
-	public String Crear(Vacante vacante, Model model){
-		
-		
-		
-		
-		return "/usuarios/formRegistro"; 
+	public String Crear(Vacante vacante, Model model) {
+
+		return "/usuarios/formRegistro";
 	}
-	
-	
-	
+
 	@PostMapping("/signup")
 	public String GuardaRegistro(Usuario usuario, BindingResult result, RedirectAttributes attributes, Model model) {
 		for (ObjectError error : result.getAllErrors()) {
@@ -67,20 +66,18 @@ public class HomeController {
 			// model.addAttribute("categorias",categoriaService.buscarTodas());
 			return "/usuarios/formRegistro";
 		}
-		
-		
-		
-		usuario.setPerfiles( Arrays.asList(new Perfil(3)) );
-		usuario.setFechaRegistro( new Date() );
+
+		usuario.setPerfiles(Arrays.asList(new Perfil(3)));
+		usuario.setFechaRegistro(new Date());
 		usuario.setEstatus(1);
-		
-		
+
 		usuarioService.Guardar(usuario);
-		
-		attributes.addFlashAttribute("msg",new StringBuilder().append("Bienvenido ").append(usuario.getNombre()).toString());
-		
+
+		attributes.addFlashAttribute("msg",
+				new StringBuilder().append("Bienvenido ").append(usuario.getNombre()).toString());
+
 		return "redirect:/";
-		
+
 	}
 
 	@GetMapping("/vacantes")
@@ -131,53 +128,96 @@ public class HomeController {
 
 	}
 
+	// asegurarme que el import sea de
+	// org.springframework.security.core.Authentication
+
+	// ESTA ES LA FORMA DE recuperar A LOS DATOS DEL USUARIO QUE INICIO SESION
+	// SE HACE CON UNA VARIABLE Authentication
+
+	// una vez que tenemos el nombre del usuario podemos usarlo para crear
+	// funcionabilidades accediendo a la DB con su nombre de usuario
+	// tambien desde el dato Authentication podemos acceder a los roles y a partir
+	// de los roles crear mas logica de programacion
+
+	// NOTA: A PARTIR DE OBTENER EL USUARIO AUTENTIFICADO PUEDO USAR ESTE DATO PARA
+	// OBTENER TODOS LOS DATOS DEL USUARIO, ESTO DESDE SU REPOSITORY USANDO JPA
+
+	// Recuperamos el usuario y añadimos el usuario a la sesion, esto usando el tipo
+	// de dato como parametro que es
+	// HTTP SESSION. Esto para que podemas tener en cuenta los datos del usuario en
+	// la sesion.
+
+	@GetMapping("/index")
+	public String mostrarIndex(Authentication auth, HttpSession session) {
+
+		String username = auth.getName();
+		System.out.println("Nombre de usuario: " + username);
+
+		for (GrantedAuthority rol : auth.getAuthorities()) {
+			System.out.println("ROL: " + rol.getAuthority());
+		}
+		if (session.getAttribute("usuario") == null) {
+
+			Usuario usuario = usuarioService.buscarPorUsername(username);
+			usuario.setPassword(null);
+			System.out.println(usuario);
+
+			session.setAttribute("usuario", usuario);
+		} else {
+			System.out.println("es null");
+		}
+
+		return "redirect:/";
+	}
+
 	@GetMapping("/")
 	public String mostrarHome(Model model) {
 
-		
-		
-		
 		return "home";
 	}
-	
-	
-	@GetMapping("/search")
-	public String buscar(@ModelAttribute("search") Vacante vacante ,Model model) {
 
-		
-//		model.addAttribute("vacantes", vacanteService.buscarVacantesPorCategoriaYDescripcion(vacante.getCategoria().getId(), vacante.getDescripcion()));
-		
+	@GetMapping("/search")
+	public String buscar(@ModelAttribute("search") Vacante vacante, Model model) {
+
+		// model.addAttribute("vacantes",
+		// vacanteService.buscarVacantesPorCategoriaYDescripcion(vacante.getCategoria().getId(),
+		// vacante.getDescripcion()));
+
 		System.out.println(vacante);
-		
-//		Esta seria la configuracion para poder usar el LIKE en los querys, usando un objeto
-//		ExampleMarcher y pasandole como primer parametro del WithMartcher el nombre de la propiedad
-//		y luego el metodo contains para que verifique si esta siendo contenido
-//		Where descripcion like '%?%'
-		ExampleMatcher matcher = ExampleMatcher.matching()
-				.withMatcher("descripcion", ExampleMatcher.GenericPropertyMatchers.contains());
-		
-		//agregamos el matcher a el example como segundo parametro en Example.of. IMPORTANTE*****
-		
-		Example<Vacante> example = Example.of(vacante,matcher);
+
+		// Esta seria la configuracion para poder usar el LIKE en los querys, usando un
+		// objeto
+		// ExampleMarcher y pasandole como primer parametro del WithMartcher el nombre
+		// de la propiedad
+		// y luego el metodo contains para que verifique si esta siendo contenido
+		// Where descripcion like '%?%'
+		ExampleMatcher matcher = ExampleMatcher.matching().withMatcher("descripcion",
+				ExampleMatcher.GenericPropertyMatchers.contains());
+
+		// agregamos el matcher a el example como segundo parametro en Example.of.
+		// IMPORTANTE*****
+
+		Example<Vacante> example = Example.of(vacante, matcher);
 		List<Vacante> lista = vacanteService.buscarByExample(example);
-		
+
 		model.addAttribute("vacantes", lista);
-		
+
 		return "home";
 	}
-	
-	/**InitBinder para Strings si los detecta vacios en el Data Bingding los settea a null
+
+	/**
+	 * InitBinder para Strings si los detecta vacios en el Data Bingding los settea
+	 * a null
+	 * 
 	 * @param Binder
 	 * 
 	 * 
 	 * 
-	 * */
+	 */
 	@InitBinder
 	public void initBinder(WebDataBinder binder) {
 		binder.registerCustomEditor(String.class, new StringTrimmerEditor(true));
 	}
-	
-	
 
 	// ModelAttribute sirve para agregar todos los atributos que quedamos, y todos
 	// los atributos que instanciemos aqui van a estar habilitados para
@@ -185,15 +225,15 @@ public class HomeController {
 
 	@ModelAttribute
 	public void setGenericos(Model model) {
-		
+
 		Vacante vacanteSearch = new Vacante();
-		
+
 		System.out.println("CREO VACANTE SEARCH");
 		System.out.println(vacanteSearch);
 		System.out.println("CREO VACANTE SEARCH");
-		
+
 		vacanteSearch.reset();
-	
+
 		model.addAttribute("vacantes", vacanteService.buscarDestacadas());
 		model.addAttribute("categorias", categoriaService.buscarTodas());
 		model.addAttribute("search", vacanteSearch);

@@ -1,43 +1,32 @@
-
-<nav th:fragment="menu-principal"
-	class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ">
-	<a class="navbar-brand" th:href="@{/}"><img
-		th:src="@{/logos/helalubo.png}" alt="" width="40" height="40"> <strong>
+<nav th:fragment="menu-principal" class="navbar navbar-expand-md navbar-dark fixed-top bg-dark ">
+    <a class="navbar-brand" th:href="@{/}"><img th:src="@{/logos/helalubo.png}" alt="" width="40" height="40"> <strong>
 			HelaJobs </strong></a>
-	<button class="navbar-toggler" type="button" data-toggle="collapse"
-		data-target="#navbarsExampleDefault"
-		aria-controls="navbarsExampleDefault" aria-expanded="false"
-		aria-label="Toggle navigation">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
 
 
-<!-- sec:authorize=hasAnyAuthority('SUPERVISOR','ADMINISTRADOR'); -->
+    <!-- sec:authorize=hasAnyAuthority('SUPERVISOR','ADMINISTRADOR'); -->
 
-	<div class="collapse navbar-collapse" id="navbarsExampleDefault">
-		<ul class="navbar-nav mr-auto">
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+        <ul class="navbar-nav mr-auto">
 
-			<li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')"><a th:href="@{/categorias/index}"
-				class="nav-link">Categorias</a></li>
-			<li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')"><a th:href="@{/categorias/create}"
-				class="nav-link" href="">Crear Categoria</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')"><a th:href="@{/categorias/index}" class="nav-link">Categorias</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('ADMINISTRADOR')"><a th:href="@{/categorias/create}" class="nav-link" href="">Crear Categoria</a></li>
 
-			<li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')"><a th:href="@{/vacantes/indexPaginate}"
-				class="nav-link" href="">ver Vacantes</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')"><a th:href="@{/vacantes/indexPaginate}" class="nav-link" href="">ver Vacantes</a></li>
 
 
-			<li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')"><a th:href="@{/vacantes/create}"
-				class="nav-link" href="">crear Vacantes</a></li>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR','ADMINISTRADOR')"><a th:href="@{/vacantes/create}" class="nav-link" href="">crear Vacantes</a></li>
 
 
-			<li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR')" ><a th:href="@{/usuarios/index}"
-				class="nav-link" href="">Ver lista de usuarios</a></li>
-		</ul>
-		<a class="btn btn-success" th:href="@{/signin}">Ingresar</a>&nbsp; <a
-			class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp; <a
-			class="btn btn-danger" th:href="@{/logout}">Salir</a>
+            <li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR')"><a th:href="@{/usuarios/index}" class="nav-link" href="">Ver lista de usuarios</a></li>
+        </ul>
+        <a class="btn btn-success" th:href="@{/index}">Ingresar</a>&nbsp;
+        <a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;
+        <span th:if="${session.usuario != null}" class="text-light" th:text=" 'Bienvenido ' + ${session.usuario.nombre}"></span>&nbsp;
+        <a class="btn btn-danger" th:href="@{/logout}">Salir</a>
 
-	</div>
+    </div>
 
 </nav>
-

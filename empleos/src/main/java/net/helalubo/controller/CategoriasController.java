@@ -3,7 +3,7 @@ package net.helalubo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
+// import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+// import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import net.helalubo.model.Categoria;
@@ -21,11 +21,11 @@ import net.helalubo.model.Vacante;
 import net.helalubo.service.ICategoriaService;
 import net.helalubo.service.IVacanteService;
 
-
 @Controller
 @RequestMapping(value = "/categorias")
-//Si quiero hacer subdirectorios en la url debemos poner el requets mapping a niver  de la clase, esta es otra forma de usar request mapping
-//LO INTERESANTE DE ESTOS ES PODER CREAR RUTAS CON SUBRUTAS
+// Si quiero hacer subdirectorios en la url debemos poner el requets mapping a
+// niver de la clase, esta es otra forma de usar request mapping
+// LO INTERESANTE DE ESTOS ES PODER CREAR RUTAS CON SUBRUTAS
 public class CategoriasController {
 
 	// creo request para acceder a datos de tipo get, post, create o el que necesite
@@ -35,10 +35,9 @@ public class CategoriasController {
 	/// ejemplo formularios de un frond.
 
 	@Autowired
-	//@Qualifier("categoriasServiceJpa")
+	// @Qualifier("categoriasServiceJpa")
 	private ICategoriaService categoriaService;
-	
-	
+
 	@Autowired
 	private IVacanteService vacanteService;
 
@@ -59,8 +58,10 @@ public class CategoriasController {
 		return "categorias/formCategoria";
 	}
 
-//	utilizo este metodo post para tomar los datos del formulario y guardarlos o manipularlos a antojo. usando requestparam
-//	lo impornte es que dentro de los requestparam coincida con el name de los input que toman datos en el formulario
+	// utilizo este metodo post para tomar los datos del formulario y guardarlos o
+	// manipularlos a antojo. usando requestparam
+	// lo impornte es que dentro de los requestparam coincida con el name de los
+	// input que toman datos en el formulario
 
 	@PostMapping("/save")
 	public String Guardar(Categoria categoria, BindingResult result, RedirectAttributes attributes) {
@@ -76,53 +77,43 @@ public class CategoriasController {
 		}
 
 		categoriaService.Guardar(categoria);
-		attributes.addFlashAttribute("msg","Registro guardado");
+		attributes.addFlashAttribute("msg", "Registro guardado");
 
 		return "redirect:/categorias/index";
 	}
-	
-
 
 	@GetMapping("/delete/{id}")
-	public String Eliminar(@PathVariable("id") Integer idCategoria,RedirectAttributes attributes) {
-		
-		
-		
+	public String Eliminar(@PathVariable("id") Integer idCategoria, RedirectAttributes attributes) {
+
 		List<Vacante> vacantesDeLaCategoriaAEliminar = vacanteService.buscarVacantesPorCategoria(idCategoria);
 		Categoria categoriaAux = new Categoria();
-		categoriaAux.setId(0); //0 Corresponde a Otra
-		
+		categoriaAux.setId(0); // 0 Corresponde a Otra
+
 		for (Vacante vacante : vacantesDeLaCategoriaAEliminar) {
-			
+
 			vacante.setCategoria(categoriaAux);
 		}
-		
+
 		vacanteService.GuardarTodas(vacantesDeLaCategoriaAEliminar);
-		
+
 		categoriaService.eliminar(idCategoria);
-		
-		
-		
+
 		attributes.addFlashAttribute("msg", "La Categoria fue eliminada con exito");
-		
+
 		return "redirect:/categorias/index";
-		
-		
+
 	}
-	
-	
+
 	@GetMapping("/edit/{id}")
-	public String editar(@PathVariable("id") int idCategoria,Model model) {
-		
-		
-		
+	public String editar(@PathVariable("id") int idCategoria, Model model) {
+
 		Categoria categoria = categoriaService.buscarPorId(idCategoria);
-		
-//		model.addAttribute("categorias",categoriaService.buscarTodas());
+
+		// model.addAttribute("categorias",categoriaService.buscarTodas());
 		model.addAttribute("categoria", categoria);
-		
+
 		return "/categorias/formCategoria";
-		
+
 	}
 
 }
