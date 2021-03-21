@@ -163,8 +163,6 @@ public class HomeController {
 			System.out.println(usuario);
 
 			session.setAttribute("usuario", usuario);
-		} else {
-			System.out.println("es null");
 		}
 
 		return "redirect:/";

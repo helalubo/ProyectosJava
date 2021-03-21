@@ -22,11 +22,21 @@
 
             <li class="nav-item" sec:authorize="hasAnyAuthority('SUPERVISOR')"><a th:href="@{/usuarios/index}" class="nav-link" href="">Ver lista de usuarios</a></li>
         </ul>
-        <a class="btn btn-success" th:href="@{/index}">Ingresar</a>&nbsp;
-        <a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;
-        <span th:if="${session.usuario != null}" class="text-light" th:text=" 'Bienvenido ' + ${session.usuario.nombre}"></span>&nbsp;
-        <a class="btn btn-danger" th:href="@{/logout}">Salir</a>
+        <!-- cuando estemos ya con un usuario abierto se deben dejar de mostrar los botones de ingresar y registrarse, esto se hace basandonos en el uisuario anonymous -->
 
-    </div>
+        <div sec:authorize="isAnonymous()">
+            <a class="btn btn-success" th:href="@{/index}">Ingresar</a>&nbsp;
+            <a class="btn btn-primary" th:href="@{/signup}">Registrarse</a>&nbsp;
+        </div>
+
+        <!-- isAuthenticated() se encierra en un div para que marquemos cuales son los templates que deben mostrarse cuando la sesion ya se abrio, por otro lado podemos usar isAnonymous()
+        para determinar los templates que seran visibles para los no usuarios -->
+
+        <div sec:authorize="isAuthenticated()">
+            <!-- <span th:if="${session.usuario != null}" class="text-light" th:text=" 'Bienvenido ' + ${session.usuario.nombre}"></span>&nbsp;  ACCEDER A CUALQUIER DATO DE USUARIO DE SESION-->
+            <span class="text-light">Bienvenido</span>&nbsp;<span class="text-light" sec:authentication="name"></span>&nbsp;
+            <a class="btn btn-danger" th:href="@{/logout}">Salir</a>
+
+        </div>
 
 </nav>
